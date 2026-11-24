@@ -1,6 +1,6 @@
 # Third-party credits and notices
 
-pi-GPIBTerm v2.0.5
+pi-GPIBTerm v2.0.6
 
 This project builds on other people's hardware, software, documentation and research. This file
 says what was used, where it came from, how it was used, and under which license. The license

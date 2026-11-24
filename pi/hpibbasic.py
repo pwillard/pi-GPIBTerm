@@ -15,7 +15,7 @@ import time
 import hpiblib
 from hpiblib import HpibError, show
 
-__version__ = "2.0.5"
+__version__ = "2.0.6"
 
 
 class BasicError(Exception):

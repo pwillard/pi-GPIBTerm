@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # gpib_driver_rebuild.sh - rebuild the gpib4pi driver module (gpib_bitbang) for a kernel
-# Part of pi-GPIBTerm v2.0.5
+# Part of pi-GPIBTerm v2.0.6
 #
 #   sudo gpib_driver_rebuild.sh            rebuild for the running kernel, if it is missing
 #   sudo gpib_driver_rebuild.sh --force    rebuild even if it is there

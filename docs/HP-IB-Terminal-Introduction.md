@@ -1,6 +1,6 @@
 # Introduction to the HP-IB Terminal
 
-pi-GPIBTerm v2.0.5
+pi-GPIBTerm v2.0.6
 
 This is a step-by-step introduction. You don't need to know BASIC or HP-IB to follow it: type the
 examples and you'll see the same results. When you want the details, see
@@ -57,7 +57,7 @@ With no Pi at all, you can practise on a PC with Python 3, from the project fold
 You'll see:
 
 ```
-HP-IB Terminal 2.0.5 - HP 82990A HP-IB Command Library work-alike on linux-gpib
+HP-IB Terminal 2.0.6 - HP 82990A HP-IB Command Library work-alike on linux-gpib
 select code 7 = board 0   [SIMULATOR: HP 3478A at address 723]
 Type HELP for help, HELP LIBRARY for the commands, BYE to leave.
 HP-IB>

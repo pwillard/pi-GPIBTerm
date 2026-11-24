@@ -22,7 +22,7 @@ import os
 import re
 import sys
 
-__version__ = "2.0.5"
+__version__ = "2.0.6"
 
 @contextlib.contextmanager
 def _quiet_stderr():

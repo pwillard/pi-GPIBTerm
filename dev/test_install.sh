@@ -28,7 +28,7 @@ ok "install.sh finishes" '[[ "$out" == *"Done - pi-GPIBTerm"* ]]'
 ok "core programs in the prefix" '[ -f "$P/hpibterm.py" ] && [ -f "$P/gpibterm_menu.py" ] && [ -f "$P/examples/bus_tour.bas" ]'
 ok "HP 3478A module in the prefix" '[ -f "$P/instruments/hp3478a/module.py" ] && [ -f "$P/instruments/hp3478a/hp3478a_cal.py" ] && [ -f "$P/instruments/hp3478a/examples/3478a_calsave.bas" ]'
 ok "no instrument programs in the core" '! ls "$P"/*3478* >/dev/null 2>&1'
-ok "guides in prefix/docs" '[ -f "$P/docs/HP-IB-Terminal-Guide.pdf" ] && [ -f "$P/docs/LICENSE" ]'
+ok "guides in prefix/docs (PDF and text)" '[ -f "$P/docs/HP-IB-Terminal-Guide.pdf" ] && [ -f "$P/docs/HP-IB-Terminal-Guide.md" ] && [ -f "$P/docs/pi-GPIBTerm-Setup-Guide.md" ] && [ -f "$P/docs/LICENSE" ]'
 ok "no CRLF in installed files" '! grep -rl $'"'"'\r'"'"' --include=*.py --include=*.sh --include=*.bas "$P"'
 for c in pi-gpibterm hpib gpib-driver-rebuild hp3478a-cal hp3478a-log; do
   ok "command $c" '[ -x "$T/bin/'"$c"'" ]'

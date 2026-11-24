@@ -1,6 +1,6 @@
 # HP-IB Terminal (`hpib`)
 
-pi-GPIBTerm v2.0.5
+pi-GPIBTerm v2.0.6
 
 The HP-IB Terminal is an HP-IB programming environment for the Raspberry Pi with Lightside
 Instruments' gpib4pi board (lsi-gpib4pi-2.x). Installation and hardware: `pi-GPIBTerm-Setup-Guide.md`.
@@ -44,7 +44,7 @@ Without a Pi, from the project folder on a PC with Python 3: `python pi/hpibterm
 You see:
 
 ```
-HP-IB Terminal 2.0.5 - HP 82990A HP-IB Command Library work-alike on linux-gpib
+HP-IB Terminal 2.0.6 - HP 82990A HP-IB Command Library work-alike on linux-gpib
 select code 7 = board 0
 Type HELP for help, HELP LIBRARY for the commands, BYE to leave.
 HP-IB>

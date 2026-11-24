@@ -15,11 +15,12 @@ import datetime
 import glob
 import importlib.util
 import os
+import re
 import shutil
 import subprocess
 import sys
 
-__version__ = "2.0.5"
+__version__ = "2.0.6"
 NAME = "pi-GPIBTerm"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -235,17 +236,82 @@ def rebuild():
     pause()
 
 
+# the guides, in reading order; the .md sources are installed beside the PDFs
+GUIDES = ["HP-IB-Terminal-Introduction", "HP-IB-Terminal-Guide", "pi-GPIBTerm-Setup-Guide",
+          "HP3478A-Module-Guide", "THIRD-PARTY-NOTICES"]
+
+
+def guide_title(path):
+    try:
+        for line in open(path, encoding="utf-8"):
+            if line.startswith("# "):
+                return line[2:].strip().replace("`", "")
+    except OSError:
+        pass
+    return os.path.basename(path)
+
+
+def plain_text(md):
+    """Markdown -> text that reads well in a terminal: headings underlined, **bold**, `code`
+    and link markup removed. Code blocks and tables are kept as they are."""
+    out, code = [], False
+    for line in md.splitlines():
+        if line.startswith("```"):
+            code = not code
+            continue
+        if code:
+            out.append("    " + line)
+            continue
+        line = re.sub(r"!\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r"[picture: \1]", line)
+        line = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1 <\2>", line)
+        line = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", line)
+        line = line.replace("**", "").replace("`", "").replace("\\", "")
+        h = re.match(r"(#{1,4}) (.*)", line)
+        if h:
+            title = h.group(2).strip()
+            out += ["", title, ("=" if len(h.group(1)) <= 2 else "-") * min(len(title), 78)]
+            continue
+        if re.match(r"^\|?\s*:?-{3,}", line):          # table separator row
+            line = re.sub(r"[^|]", "-", line)
+        out.append(line)
+    return "\n".join(out) + "\n"
+
+
+def page(text):
+    """Show text one screen at a time (less, or $PAGER); plain print when not on a terminal."""
+    pager = os.environ.get("PAGER") or ("less" if shutil.which("less") else "more")
+    if not sys.stdout.isatty() and not os.environ.get("PAGER"):
+        print(text)
+        return
+    if pager == "less":
+        print("(less: Space = next page, b = back, /word = search, q = back to the menu)")
+        pager = "less -R"
+    try:
+        p = subprocess.Popen(pager, shell=True, stdin=subprocess.PIPE)
+        p.communicate(text.encode("utf-8", "replace"))
+    except (OSError, KeyboardInterrupt):
+        print(text)
+
+
 def docs():
-    d = os.path.join(HERE, "docs")
-    print("\nThe guides are PDF files in %s:" % d)
-    for f in sorted(glob.glob(os.path.join(d, "*.pdf"))):
-        print("  " + os.path.basename(f))
-    print("""
-To read them on your PC, copy them over, e.g. in PowerShell on the PC:
-    scp "%s@<this Pi>:%s/*.pdf" .
-Inside the HP-IB Terminal, HELP explains every command (HELP LIBRARY, HELP BASIC ...).""" % (
-        os.environ.get("USER", "you"), d))
-    pause()
+    d = os.path.join(HERE, "docs")                     # installed: /opt/pi-gpibterm/docs
+    if not os.path.isdir(d):                           # run from the project folder: ../docs
+        d = os.path.join(os.path.dirname(HERE), "docs")
+    pdfs = d if glob.glob(os.path.join(d, "*.pdf")) else os.path.dirname(d)
+    while True:
+        found = [(g, os.path.join(d, g + ".md")) for g in GUIDES if os.path.isfile(os.path.join(d, g + ".md"))]
+        print("\nThe guides - read them here, in this window:")
+        for i, (g, p) in enumerate(found, 1):
+            print("  %d  %s" % (i, guide_title(p)))
+        print("""
+Inside the HP-IB Terminal, HELP explains every command (HELP LIBRARY, HELP BASIC ...).
+The same guides as PDF files (to print, or to read on a PC) are in %s.
+Copy them to a PC with, in PowerShell on the PC:
+    scp "%s@<this Pi>:%s/*.pdf" .""" % (pdfs, os.environ.get("USER", "you"), pdfs))
+        s = ask("\nNumber to read (Enter = back to the menu)")
+        if not (s.isdigit() and 1 <= int(s) <= len(found)):
+            return
+        page(plain_text(open(found[int(s) - 1][1], encoding="utf-8").read()))
 
 
 def show_menu(mods):
@@ -264,7 +330,7 @@ def show_menu(mods):
         print()
     print("""  9  Check the installation        (driver, /dev/gpib0, instruments on the bus)
   R  Rebuild the GPIB driver       (after a kernel update)
-  D  Where are the guides (PDF)?
+  D  Read the guides               (in this window; PDFs for a PC)
   Q  Quit
 """)
 

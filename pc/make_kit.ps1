@@ -39,7 +39,7 @@ $include = @(
     'pi-GPIBTerm-Setup-Guide.pdf', 'HP3478A-Module-Guide.pdf', 'THIRD-PARTY-NOTICES.pdf',
     'LICENSES\*', 'pi\*.py', 'pi\*.sh', 'pi\examples\*.bas',
     'pi\instruments\*\*.py', 'pi\instruments\*\COMMANDS', 'pi\instruments\*\examples\*.bas',
-    'docs\THIRD-PARTY-NOTICES.md'
+    'docs\*.md'
 )
 
 try {

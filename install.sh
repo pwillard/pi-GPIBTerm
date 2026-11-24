@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # install.sh - install pi-GPIBTerm on a Raspberry Pi with a Lightside gpib4pi board
-# Part of pi-GPIBTerm v2.0.5
+# Part of pi-GPIBTerm v2.0.6
 #
 # On a fresh Raspberry Pi OS Lite:
 #     sudo apt-get update && sudo apt-get -y install git
@@ -111,7 +111,10 @@ if [ -d "$SRC/LICENSES" ]; then
   mkdir -p "$PREFIX/docs/LICENSES"
   install -m 0644 "$SRC"/LICENSES/* "$PREFIX/docs/LICENSES/"
 fi
-if [ -f "$SRC/docs/THIRD-PARTY-NOTICES.md" ]; then install -m 0644 "$SRC/docs/THIRD-PARTY-NOTICES.md" "$PREFIX/docs/"; fi
+# the guides' sources too: plain text, for reading on the Pi itself (menu item D)
+for f in "$SRC"/docs/*.md; do
+  if [ -f "$f" ]; then install -m 0644 "$f" "$PREFIX/docs/"; fi
+done
 # no line-ending surprises: everything that runs must be LF
 find "$PREFIX" \( -name '*.py' -o -name '*.sh' -o -name '*.bas' \) -exec sed -i 's/\r$//' {} +
 echo "$VERSION installed $(date '+%Y-%m-%d %H:%M') from $SRC" > "$PREFIX/INSTALLED"
@@ -202,7 +205,7 @@ say "Done - pi-GPIBTerm $VERSION"
 cat <<EOF
 Start the menu:   pi-gpibterm    (or ~/pi-gpibterm/menu)
 HP-IB Terminal:   hpib           (practise without an instrument: hpib --sim)
-Guides (PDF):     $PREFIX/docs
+Guides:           menu item D reads them here; PDFs for a PC in $PREFIX/docs
 Your files:       $WORK  (programs/, backups/, logs/)
 EOF
 if [ "$DRIVER" = yes ] && ! id -nG "$TARGET_USER" 2>/dev/null | grep -qw gpib; then

@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # setup_pi.sh - linux-gpib and the gpib4pi driver on a Raspberry Pi (install.sh runs this)
-# Part of pi-GPIBTerm v2.0.5
+# Part of pi-GPIBTerm v2.0.6
 #
 # Run ON THE PI:   sudo bash setup_pi.sh        (install.sh runs it for you)
 #

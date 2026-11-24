@@ -11,7 +11,7 @@ import sys
 import time
 
 menu, work = sys.argv[1], sys.argv[2]
-env = dict(os.environ, PI_GPIBTERM_HOME=work, PI_GPIBTERM_SIM="1", TERM="dumb")
+env = dict(os.environ, PI_GPIBTERM_HOME=work, PI_GPIBTERM_SIM="1", TERM="dumb", PAGER="cat")
 pid, fd = pty.fork()
 if pid == 0:
     os.execvpe(menu, [menu], env)
@@ -86,6 +86,15 @@ send("")
 expect("Choose")
 send("B")
 check("B returns to the main menu", "Instrument modules:" in expect("Choose"))
+send("D")                                   # the guides, readable in the terminal
+out = expect("Number to read")
+check("D lists the guides", "1  Introduction to the HP-IB Terminal" in out and "HP 3478A Module Guide" in out)
+send("3")
+out = expect("Number to read")
+check("D shows a guide as plain text", "pi-GPIBTerm Setup Guide" in out and "=====" in out
+      and "**" not in out and "What to expect from the gpib4pi" in out)
+send("")
+expect("Choose")
 send("Q")
 time.sleep(0.5)
 _, status = os.waitpid(pid, 0)

@@ -241,7 +241,7 @@
 <h1
 id="pi-gpibterm-setup-guide-gpib-on-a-raspberry-pi-with-the-lightside-gpib4pi">pi-GPIBTerm
 Setup Guide: GPIB on a Raspberry Pi with the Lightside gpib4pi</h1>
-<p>pi-GPIBTerm v2.0.5</p>
+<p>pi-GPIBTerm v2.0.6</p>
 <p>pi-GPIBTerm turns a Raspberry Pi with a Lightside Instruments gpib4pi
 board into an HP-IB (GPIB) workstation for any GPIB instrument: the
 HP-IB Terminal (an HP 82990A HP-IB Command Library work-alike with
@@ -281,9 +281,10 @@ Log out and back in once afterwards, so you can use the GPIB board
 without <code>sudo</code>.</p>
 <p><strong>Use</strong> it by typing <code>pi-gpibterm</code> to open
 the menu. It offers the HP-IB Terminal (with an instrument or the
-simulator), the BASIC programs, a bus scan, an installation check and a
-driver rebuild, and a section for each instrument module. The same tools
-are also commands:</p>
+simulator), the BASIC programs, a bus scan, an installation check, a
+driver rebuild, the guides (item <code>D</code>: shown as text in the
+terminal, so they work over SSH), and a section for each instrument
+module. The same tools are also commands:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pi-gpibterm</span>                     <span class="co"># the menu (or ~/pi-gpibterm/menu)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span>                            <span class="co"># HP-IB Terminal;  hpib --sim  = practise without an instrument</span></span>

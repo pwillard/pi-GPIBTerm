@@ -1,4 +1,4 @@
-# pi-GPIBTerm (v2.0.5) - formerly hp3478a-gpib
+# pi-GPIBTerm (v2.0.6) - formerly hp3478a-gpib
 
 2.0.0: pi-GPIBTerm (renamed from hp3478a-gpib, generic): core in pi/, HP 3478A tools as instrument module pi/instruments/hp3478a (module.py adds menu section H; COMMANDS -> hp3478a-cal/hp3478a-log; examples found as examples/...). Paths /opt/pi-gpibterm, ~/pi-gpibterm, commands pi-gpibterm/hpib/gpib-driver-rebuild; gpib.conf has no device entry; install.sh migrates a 1.x install (~/hp3478a -> ~/pi-gpibterm, address -> HP3478A_ADDRESS).
 

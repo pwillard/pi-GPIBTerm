@@ -29,7 +29,7 @@ import hpibhelp  # noqa: E402
 import hpiblib  # noqa: E402
 from hpibbasic import BasicError  # noqa: E402
 
-__version__ = "2.0.5"
+__version__ = "2.0.6"
 PROMPT = "HP-IB> "
 COMMANDS = {"RUN", "LIST", "NEW", "CONT", "EDIT", "DELETE", "RENUM", "AUTO", "LOAD", "SAVE",
             "MERGE", "FILES", "TRACE", "VARS", "CLEAR", "HELP", "BYE", "QUIT", "EXIT", "SYSTEM"}

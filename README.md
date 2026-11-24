@@ -74,7 +74,7 @@ adjustable T1 timing. The setup guide explains what that means in practice.
 
   9  Check the installation        (driver, /dev/gpib0, instruments on the bus)
   R  Rebuild the GPIB driver       (after a kernel update)
-  D  Where are the guides (PDF)?
+  D  Read the guides               (in this window; PDFs for a PC)
   Q  Quit
 ```
 
@@ -113,6 +113,9 @@ always kept.
 - [HP 3478A Module Guide](HP3478A-Module-Guide.pdf): the meter's commands, readings,
   calibration backup and battery replacement
 - [Third-party credits and notices](THIRD-PARTY-NOTICES.pdf)
+
+On the Pi itself, menu item `D` shows the same guides as text in the terminal, so you can
+read them over SSH. The PDFs are installed too, in `/opt/pi-gpibterm/docs`, for copying to a PC.
 
 The examples in the guides and in `HELP` use device 723, where the simulator has an HP 3478A.
 Use your own instrument's address and commands instead.
