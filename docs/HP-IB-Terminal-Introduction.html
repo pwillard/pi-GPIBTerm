@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Introduction to the HP-IB Terminal</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+
+<header id="title-block-header">
+<h1 class="title">Introduction to the HP-IB Terminal</h1>
+</header>
+<h1 id="introduction-to-the-hp-ib-terminal">Introduction to the HP-IB
+Terminal</h1>
+<p>pi-GPIBTerm v2.0.5</p>
+<p>This is a step-by-step introduction. You don’t need to know BASIC or
+HP-IB to follow it: type the examples and you’ll see the same results.
+When you want the details, see <code>HP-IB-Terminal-Guide.md</code> (the
+reference), or type <code>HELP</code> in the terminal.</p>
+<hr />
+<h2 id="what-is-it">1. What is it?</h2>
+<p><strong>HP-IB</strong> is the instrument bus Hewlett-Packard designed
+in the 1960s and 70s. It’s also called <strong>GPIB</strong> or
+<strong>IEEE-488</strong>. Many bench instruments of that era have it:
+meters, power supplies, signal generators, counters. With the bus, a
+computer can set an instrument up, trigger it and read its results.</p>
+<p>In 1985-86 HP sold the <strong>HP-IB Command Library</strong> (the HP
+82990A) for PCs. It gave BASIC programs a set of commands with names
+like <code>IOOUTPUTS</code> (send text to an instrument) and
+<code>IOENTER</code> (read a number from one). Its manual, the <em>HP-IB
+Command Library Reference</em>, can be read or downloaded at the
+Internet Archive:
+https://archive.org/details/hp-ib-command-library-reference</p>
+<p>The <strong>HP-IB Terminal</strong> brings that back on a Raspberry
+Pi with a gpib4pi board:</p>
+<ul>
+<li>The same commands, used the same way as in the manual.</li>
+<li>A built-in BASIC, so you can type commands one at a time or write
+small programs, save them and run them again.</li>
+<li>Help for everything, typed right at the prompt.</li>
+<li>A practice mode that simulates an HP 3478A multimeter, so you can
+learn on the PC with no hardware at all.</li>
+</ul>
+<h2 id="what-you-need">2. What you need</h2>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr>
+<th>To practise (simulator)</th>
+<th>To use your real meter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The Pi with pi-GPIBTerm installed, or a PC with Python 3</td>
+<td>A Raspberry Pi with Lightside’s gpib4pi board (lsi-gpib4pi-2.x) and
+pi-GPIBTerm installed (<code>README.md</code>, or section 0 of
+<code>pi-GPIBTerm-Setup-Guide.md</code>)</td>
+</tr>
+<tr>
+<td></td>
+<td>The HP 3478A switched on, at its usual address 23</td>
+</tr>
+</tbody>
+</table>
+<p>The terminal works with any GPIB instrument. This introduction uses
+an HP 3478A multimeter at address 23 (device 723) as its example,
+because that is what the simulator has. With another instrument, use its
+address and its own commands. Everything in this introduction works in
+the simulator. The simulated meter gives readings near 1.23456 volts, so
+your numbers will be slightly different each time, just like a real
+meter’s.</p>
+<h2 id="starting-and-stopping">3. Starting and stopping</h2>
+<p>On the Pi, type <code>hp3478a</code> for the menu and choose
+<strong>1</strong> (real meter) or <strong>2</strong> (simulator). Or
+start it directly:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span>            <span class="co"># use the real meter</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span> <span class="at">--sim</span>      <span class="co"># practise with the simulated meter</span></span></code></pre></div>
+<p>With no Pi at all, you can practise on a PC with Python 3, from the
+project folder: <code>python pi/hpibterm.py --sim</code>. On Windows,
+<code>.\pc\deploy.ps1 sim</code> does the same.</p>
+<p>You’ll see:</p>
+<pre><code>HP-IB Terminal 2.0.5 - HP 82990A HP-IB Command Library work-alike on linux-gpib
+select code 7 = board 0   [SIMULATOR: HP 3478A at address 723]
+Type HELP for help, HELP LIBRARY for the commands, BYE to leave.
+HP-IB&gt;</code></pre>
+<p><code>HP-IB&gt;</code> is the prompt: the terminal is waiting for
+you. Type something and press Enter.</p>
+<p>To leave, type <code>BYE</code>. On the way out the meter is put back
+to front-panel control, so its buttons work again.</p>
+<h2 id="your-first-commands">4. Your first commands</h2>
+<p>Start with something that doesn’t need an instrument at all:</p>
+<pre><code>HP-IB&gt; PRINT 2 + 2
+ 4</code></pre>
+<p><code>PRINT</code> shows the result of whatever you give it. (BASIC
+prints a space in front of positive numbers; that’s normal.)</p>
+<p>Now find out what’s on the bus:</p>
+<pre><code>HP-IB&gt; SCAN
+Listeners found: 23 (address 723)</code></pre>
+<p>There’s one instrument, at bus address 23. You’ll talk to it as
+<strong>723</strong>. That’s because the commands from the manual put
+the interface number in front of the instrument address: the gpib4pi is
+interface <strong>7</strong>, so the instrument at address 23 is
+<strong>7</strong>23. You’ll use 723 everywhere from now on.</p>
+<p>Ask the meter for a reading:</p>
+<pre><code>HP-IB&gt; ASK 723, &quot;H1&quot;
+&quot;+1.23457E+0&lt;CR&gt;&lt;LF&gt;&quot;</code></pre>
+<p><code>ASK</code> sends some text to the instrument, then shows what
+it sends back. <code>H1</code> is the 3478A’s code for “take one DC
+volts reading”. The answer <code>+1.23457E+0</code> means 1.23457 x
+10^0, which is 1.23457 volts. <code>&lt;CR&gt;&lt;LF&gt;</code> are the
+two invisible end-of-line characters the meter sends after every
+reading. The terminal shows them so you can see exactly what
+arrived.</p>
+<h2 id="talking-to-the-meter-with-the-library-commands">5. Talking to
+the meter with the library commands</h2>
+<p><code>ASK</code> is a handy shortcut. The real work is done with the
+library commands, and they’re worth getting to know, because every
+program uses them. The two you’ll use most:</p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IOOUTPUTS 723, "text"</code></td>
+<td>send text (instrument codes) to the instrument</td>
+</tr>
+<tr>
+<td><code>IOENTER 723</code></td>
+<td>read one number back from it</td>
+</tr>
+</tbody>
+</table>
+<p>Set the meter up, trigger one reading, and read it:</p>
+<pre><code>HP-IB&gt; IOOUTPUTS 723, &quot;F1RAN5T4&quot;
+HP-IB&gt; IOOUTPUTS 723, &quot;T3&quot;
+HP-IB&gt; IOENTER 723
+1.23457</code></pre>
+<p>The first line is a string of 3478A codes, one after the other:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F1</code></td>
+<td>function 1 = DC volts</td>
+</tr>
+<tr>
+<td><code>RA</code></td>
+<td>range: automatic</td>
+</tr>
+<tr>
+<td><code>N5</code></td>
+<td>5.5 digits</td>
+</tr>
+<tr>
+<td><code>T4</code></td>
+<td>trigger hold: wait until told to measure</td>
+</tr>
+</tbody>
+</table>
+<p><code>T3</code> then says “measure once, now”, and
+<code>IOENTER</code> reads the result as a number. Commands that only
+send something print nothing when they work. (<code>HELP 3478A</code>
+lists all the meter’s codes.)</p>
+<p>Instead of printing the reading, you can keep it in a
+<strong>variable</strong>, and use it:</p>
+<pre><code>HP-IB&gt; IOOUTPUTS 723, &quot;T3&quot;: IOENTER 723, V: PRINT &quot;The meter reads&quot;; V; &quot;volts&quot;
+The meter reads 1.23457 volts</code></pre>
+<p>Two new things here:</p>
+<ul>
+<li><code>IOENTER 723, V</code> puts the reading into a variable called
+<code>V</code> instead of printing it.</li>
+<li>The <code>:</code> lets you put several commands on one line. They
+run left to right.</li>
+</ul>
+<p>You can even repeat something on one line:</p>
+<pre><code>HP-IB&gt; FOR I = 1 TO 3: IOOUTPUTS 723, &quot;T3&quot;: IOENTER 723, V: PRINT I, V: NEXT I
+ 1             1.23457
+ 2             1.23456
+ 3             1.23457</code></pre>
+<p><code>FOR I = 1 TO 3 ... NEXT I</code> runs the commands in between
+three times, with <code>I</code> counting 1, 2, 3.</p>
+<p>Try a fun one on the real meter. It shows text on the meter’s display
+(up to 12 characters), and <code>D1</code> puts the normal display
+back:</p>
+<pre><code>HP-IB&gt; IOOUTPUTS 723, &quot;D2HELLO&quot;
+HP-IB&gt; IOOUTPUTS 723, &quot;D1&quot;</code></pre>
+<h2 id="your-first-program">6. Your first program</h2>
+<p>Typing the same line again and again gets old. A
+<strong>program</strong> is a list of lines that the terminal remembers
+and runs whenever you ask. You make one by putting a <strong>line
+number</strong> in front of each line. A numbered line is stored, not
+run:</p>
+<pre><code>HP-IB&gt; 10 REM My first program
+HP-IB&gt; 20 DVM = 723
+HP-IB&gt; 30 IOOUTPUTS DVM, &quot;F1RAN5T4&quot;
+HP-IB&gt; 40 FOR I = 1 TO 5
+HP-IB&gt; 50 IOOUTPUTS DVM, &quot;T3&quot;
+HP-IB&gt; 60 IOENTER DVM, V
+HP-IB&gt; 70 PRINT &quot;Reading&quot;; I; &quot;=&quot;; V
+HP-IB&gt; 80 NEXT I
+HP-IB&gt; 90 IOLOCAL DVM</code></pre>
+<ul>
+<li><code>REM</code> is a remark: a note for people, ignored by the
+computer.</li>
+<li><code>DVM = 723</code> keeps the meter’s address in a variable
+called <code>DVM</code> (digital voltmeter). If the meter ever moves to
+another address, you change one line.</li>
+<li><code>IOLOCAL</code> puts the meter back to front-panel control at
+the end.</li>
+</ul>
+<p><code>LIST</code> shows the program and <code>RUN</code> runs it:</p>
+<pre><code>HP-IB&gt; RUN
+Reading 1 = 1.23457
+Reading 2 = 1.23456
+Reading 3 = 1.23457
+Reading 4 = 1.23456
+Reading 5 = 1.23455</code></pre>
+<h3 id="changing-a-program">Changing a program</h3>
+<ul>
+<li><p><strong>Replace a line:</strong> type it again with the same
+number. To add “V” after each reading:</p>
+<pre><code>HP-IB&gt; 70 PRINT &quot;Reading&quot;; I; &quot;=&quot;; V; &quot;V&quot;</code></pre></li>
+<li><p><strong>Insert a line:</strong> use a number in between. That’s
+why lines are numbered in tens:</p>
+<pre><code>HP-IB&gt; 35 PRINT &quot;Taking 5 readings...&quot;</code></pre></li>
+<li><p><strong>Delete a line:</strong> type just its number,
+e.g. <code>35</code>.</p></li>
+<li><p><strong>Edit a line in place:</strong> <code>EDIT 70</code> puts
+line 70 on the input line. Move with the arrow keys, change it, press
+Enter.</p></li>
+<li><p><strong>Tidy the numbers:</strong> <code>RENUM</code> renumbers
+everything 10, 20, 30 … and fixes any <code>GOTO</code>s.</p></li>
+</ul>
+<p><code>LIST</code> and <code>RUN</code> again:</p>
+<pre><code>HP-IB&gt; RUN
+Taking 5 readings...
+Reading 1 = 1.23457 V
+Reading 2 = 1.23457 V
+...</code></pre>
+<h3 id="saving-and-loading">Saving and loading</h3>
+<pre><code>HP-IB&gt; SAVE &quot;first&quot;
+Saved 10 line(s) to first.bas
+HP-IB&gt; NEW
+HP-IB&gt; LOAD &quot;first&quot;
+Loaded first.bas (10 lines)</code></pre>
+<p><code>SAVE</code> writes the program to <code>first.bas</code>, a
+plain text file you can also open in Notepad. <code>NEW</code> clears
+the program from memory (save first!). <code>LOAD</code> brings it back.
+<code>FILES</code> lists your saved programs. Started from the menu (or
+from <code>~/pi-gpibterm</code>), <code>SAVE "programs/name"</code>
+keeps them in <code>~/pi-gpibterm/programs</code>, and menu item 3 lists
+them.</p>
+<p>To <strong>stop</strong> a program that is running, press
+<strong>Ctrl+C</strong>. <code>CONT</code> carries on from where it
+stopped.</p>
+<h2 id="something-useful-logging-readings-to-a-file">7. Something
+useful: logging readings to a file</h2>
+<p>The folder <code>examples</code> has ready-made programs. Load the
+logger and look at it:</p>
+<pre><code>HP-IB&gt; LOAD &quot;examples/3478a_log&quot;
+HP-IB&gt; LIST</code></pre>
+<p>It asks a few questions, then takes readings and adds each one, with
+the date and time, to a CSV file that Excel can open:</p>
+<pre><code>HP-IB&gt; RUN
+Function (1=DCV 2=ACV 3=2W ohm 4=4W ohm 5=DCA 6=ACA)? 1
+Number of readings (0 = until Ctrl+C)? 3
+Seconds between readings? 1
+CSV file name (Enter = readings.csv): bench.csv
+11-23-2026 09:23:11         1.23457
+11-23-2026 09:23:12         1.23458
+11-23-2026 09:23:13         1.23454
+ 3 reading(s) added to bench.csv</code></pre>
+<p>Reading the listing is a good way to learn: the program uses
+<code>INPUT</code> to ask questions, <code>OPEN ... FOR APPEND</code>
+and <code>PRINT #1</code> to write the file, and
+<code>WHILE ... WEND</code> to repeat. Each of these has its own help
+entry, e.g. <code>HELP OPEN</code>.</p>
+<p>The other examples:</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr>
+<th>Program</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>3478a_read</code></td>
+<td>readings with single triggers; over-range shown as OVERLOAD</td>
+</tr>
+<tr>
+<td><code>3478a_srq</code></td>
+<td>the meter signals “reading ready” by itself (service request, serial
+poll)</td>
+</tr>
+<tr>
+<td><code>3478a_calsave</code></td>
+<td>saves the meter’s calibration memory to files (see below)</td>
+</tr>
+<tr>
+<td><code>error_handler</code></td>
+<td>catching errors the way the 1986 manual does</td>
+</tr>
+<tr>
+<td><code>bus_tour</code></td>
+<td>one of each library command. Type <code>TRACE ON</code> first to
+watch the bus</td>
+</tr>
+<tr>
+<td><code>manual_example</code></td>
+<td>the example program from the manual (needs an HP 3325A and HP
+3456A)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="saving-the-meters-calibration">Saving the meter’s
+calibration</h3>
+<p>The 3478A keeps its calibration in a small memory that a battery
+keeps alive. If the battery goes flat, the calibration is lost.
+<code>3478a_calsave</code> reads that memory and saves it to files, so
+it can be put back later:</p>
+<pre><code>HP-IB&gt; RUN &quot;examples/3478a_calsave&quot;
+Reading calibration RAM (pass 1)...
+  read 64 of 256
+  ...
+Reading calibration RAM (pass 2, check)...
+
+Address 0 (r/w check nibble): 0
+#   range              offset        gain  checksum
+0   30 mV DC              116    1.000983  ok
+1   300 mV DC               5    1.000694  ok
+...
+18  (unused)                0    1.000000  ok
+Result: all used entries valid
+
+Saved and checked: backups/calram_20261123_103426.txt
+                   backups/calram_20261123_103426.bin
+                   backups/calram_20261123_103426.info.txt</code></pre>
+<p>It only <strong>reads</strong> the meter and never changes it. The
+memory is read twice, and the files are only written if both reads are
+the same. The files are the same as those of
+<code>hp3478a-cal backup</code> (menu item 5), so that tool can
+<code>verify</code> the meter against them, or <code>restore</code> them
+after a battery change (see section 2 of
+<code>HP3478A-Module-Guide.md</code>). Copy them off the Pi. From a
+Windows PC with this project, <code>.\pc\deploy.ps1 pull</code> does it.
+The program is also a good example of a longer BASIC program, with
+subroutines, error handling and files. <code>LIST</code> it and read
+it.</p>
+<h2 id="when-something-goes-wrong">8. When something goes wrong</h2>
+<h3 id="error-messages">Error messages</h3>
+<p>If an instrument doesn’t answer, you get an HP-IB error:</p>
+<pre><code>HP-IB&gt; IOENTER 705
+HP-IB error 100004 (ETIME): HPIB: timeout - ...</code></pre>
+<p>There’s nothing at address 5, so the terminal waited, gave up, and
+said so. The number and the name (<code>ETIME</code>) come from the
+original manual, so you can look them up there or with
+<code>HELP ERRORS ETIME</code>. In a program, the message also tells you
+the line number.</p>
+<p>Mistakes in BASIC give BASIC errors, also with the line number:</p>
+<pre><code>HP-IB&gt; RUN
+NEXT without FOR in 40</code></pre>
+<p>Here line 40 said <code>NEXT J</code>, but the loop was
+<code>FOR I</code>. Use <code>EDIT 40</code> to fix it.</p>
+<h3 id="checklist-when-an-instrument-wont-answer">Checklist when an
+instrument won’t answer</h3>
+<ol type="1">
+<li>Is it switched on? Is the cable (or the gpib4pi) firmly in?</li>
+<li><code>SCAN</code>: does its address show up? If it shows a different
+address, use that one.</li>
+<li>The 3478A, like many HP instruments of its age, reads its address
+switches only when it is switched on. After changing the switches, turn
+it off and on again.</li>
+<li>Some instruments only answer after you’ve asked them something. Send
+a code first, then read.</li>
+<li><code>IOCLEAR 723</code> resets the instrument’s bus interface,
+which clears a confused state.</li>
+</ol>
+<h3 id="seeing-what-happens-on-the-bus">Seeing what happens on the
+bus</h3>
+<p><code>TRACE ON</code> makes every command show what it does on the
+bus, in the words of the manual:</p>
+<pre><code>HP-IB&gt; TRACE ON
+HP-IB&gt; IOCLEAR 723
+    [bus] ATN UNL MTA LAD 23 SDC
+HP-IB&gt; TRACE OFF</code></pre>
+<p>That line reads: attention, unlisten everyone, the Pi is the talker,
+instrument 23 listen, “selected device clear”. You don’t need to
+understand it to use the terminal, but it’s a great way to learn how
+HP-IB works. Try it with <code>bus_tour</code>.</p>
+<h2 id="getting-help">9. Getting help</h2>
+<p>Help is built in and works like the old DEC VMS HELP:</p>
+<pre><code>HP-IB&gt; HELP                         the overview
+HP-IB&gt; HELP COMMAND                 all the terminal commands (RUN, LIST, SAVE ...)
+HP-IB&gt; HELP COMMAND SAVE            just SAVE
+HP-IB&gt; HELP SAVE                    the same: HELP finds it by itself
+HP-IB&gt; HELP LIBRARY                 all 26 HP-IB library commands
+HP-IB&gt; HELP IOENTER                 one of them</code></pre>
+<p>You can shorten names (<code>HELP COM SA</code>). After the text,
+help keeps asking for more, and the prompt shows where you are, for
+example <code>LIBRARY IOSPOLL Subtopic?</code>. From there:</p>
+<ul>
+<li>type another name to look it up (any name works, wherever you
+are);</li>
+<li>press <strong>Enter</strong> to go up one level;</li>
+<li>type <strong>TOP</strong> to jump straight back to the top
+level;</li>
+<li>press <strong>Ctrl+C</strong> to leave help and get back to
+<code>HP-IB&gt;</code>.</li>
+</ul>
+<p>There are four groups: <strong>LIBRARY</strong> (talking to
+instruments), <strong>COMMAND</strong> (working with programs),
+<strong>STATEMENT</strong> (BASIC: PRINT, FOR, IF …) and
+<strong>FUNCTION</strong> (LEN, MID$, TIMER …). <code>HELP 3478A</code>
+lists the meter’s codes.</p>
+<h2 id="where-to-go-next">10. Where to go next</h2>
+<ul>
+<li>Load each example, <code>LIST</code> it, <code>RUN</code> it, change
+it, and run it again.</li>
+<li><code>HELP LIBRARY</code> and try the commands one at a time with
+<code>TRACE ON</code>.</li>
+<li><code>HP-IB-Terminal-Guide.md</code> is the full reference:
+addressing, error handling, running programs without the prompt (for
+example on a timer), and the differences from the original.</li>
+<li>Chapter 2 of HP’s <em>HP-IB Command Library Reference</em>
+(https://archive.org/details/hp-ib-command-library-reference) is HP’s
+own description of every command. Programs written for it run here with
+few or no changes.</li>
+</ul>
+<h2 id="credits">11. Credits</h2>
+<p>This project builds on the gpib4pi board and guide by Lightside
+Instruments, the linux-gpib driver (including the
+<code>gpib_bitbang</code> driver by Thomas Klima and Marcello Carla’),
+HP’s <em>HP-IB Command Library</em> manual (1986), and the HP 3478A
+calibration research of Tom Verbeure, PyMeasure, Patrick Baus and Vinay
+Shanbhag. <code>THIRD-PARTY-NOTICES.md</code> says what came from each,
+and the licenses.</p>
+<p>pi-GPIBTerm itself is free software under the GNU General Public
+License version 3 (<code>GPL-3.0-only</code>); see
+<code>LICENSE</code>.</p>
+<hr />
+<h2 id="quick-reference-card">Quick reference card</h2>
+<pre><code>Start / stop      hp3478a (menu)   hpib   hpib --sim   BYE
+The meter         address 723      ASK 723, &quot;H1&quot;      SCAN
+Send / read       IOOUTPUTS 723, &quot;codes&quot;       IOENTER 723, V       IOENTERS 723, A$
+Reset / local     IOCLEAR 723                  IOLOCAL 723
+3478A codes       F1 DCV  F2 ACV  F3 ohm  F5 DCA   RA autorange   N5 5.5 digits
+                  T3 one reading   T4 hold   T1 free run   D2text display   D1 normal
+Programs          10 PRINT &quot;HI&quot;   LIST   RUN   EDIT 10   10 (delete)   RENUM   NEW
+Files             SAVE &quot;name&quot;   LOAD &quot;name&quot;   FILES   LOAD &quot;examples/3478a_read&quot;
+BASIC             V = 5   A$ = &quot;TEXT&quot;   PRINT V; A$   INPUT &quot;Value&quot;; V
+                  FOR I = 1 TO 10 ... NEXT I   IF V &gt; 2 THEN PRINT &quot;HIGH&quot;   GOTO 100
+Stop a program    Ctrl+C   (CONT to carry on)
+Trouble           SCAN   TRACE ON   IOCLEAR 723   HELP ERRORS
+Help              HELP   HELP COMMAND SAVE   HELP IOENTER   HELP 3478A
+In HELP           Enter = up one level   TOP = top level   ? = repeat   Ctrl+C = leave</code></pre>
+</body>
+</html>

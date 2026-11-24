@@ -1,0 +1,7 @@
+# pi-GPIBTerm: files git should not track
+state.txt
+__pycache__/
+reference-local/
+dist/
+# your own calibration backups, copied back from the Pi: personal data, not project files
+backups/

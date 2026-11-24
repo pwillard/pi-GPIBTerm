@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>HP 3478A Module Guide</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+
+<header id="title-block-header">
+<h1 class="title">HP 3478A Module Guide</h1>
+</header>
+<h1 id="hp-3478a-module-guide">HP 3478A Module Guide</h1>
+<p>pi-GPIBTerm v2.0.5</p>
+<p>The HP 3478A module is the part of pi-GPIBTerm made for the HP 3478A
+multimeter. The rest of pi-GPIBTerm works with any GPIB instrument
+(<code>pi-GPIBTerm-Setup-Guide.md</code>). The module adds:</p>
+<ul>
+<li>section <strong>H</strong> in the menu (<code>pi-gpibterm</code>):
+readings, calibration RAM backup, verify, show and restore, and the
+meter’s address</li>
+<li>the commands <code>hp3478a-log</code> (readings, CSV) and
+<code>hp3478a-cal</code> (calibration RAM)</li>
+<li>HP-IB Terminal programs: <code>3478a_read</code>,
+<code>3478a_log</code>, <code>3478a_srq</code> and
+<code>3478a_calsave</code> (<code>LOAD "examples/3478a_read"</code>, or
+menu item 3)</li>
+</ul>
+<p>The meter’s factory GPIB address is 23 (device address 723). If yours
+differs, set it in the module’s menu (<code>A</code>), or give
+<code>-a N</code> to the commands. It is stored in
+<code>~/pi-gpibterm/pi-gpibterm.conf</code> as
+<code>HP3478A_ADDRESS</code>. The module’s files are in
+<code>pi/instruments/hp3478a/</code> (installed in
+<code>/opt/pi-gpibterm/instruments/hp3478a/</code>).</p>
+<hr />
+<h2 id="talk-to-the-hp-3478a">1. Talk to the HP 3478A</h2>
+<p>The 3478A is <strong>pre-SCPI</strong>: it does not understand
+<code>*IDN?</code>, <code>MEAS:...</code> or <code>READ?</code>. It uses
+short codes, which can be chained in one string
+(e.g. <code>F1RAZ1N5T1</code>).</p>
+<h3 id="command-summary">Command summary</h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F1</code>..<code>F7</code></td>
+<td>Function: F1 DC V, F2 AC V, F3 2-wire ohms, F4 4-wire ohms, F5 DC A,
+F6 AC A, F7 extended ohms</td>
+</tr>
+<tr>
+<td><code>RA</code></td>
+<td>Autorange</td>
+</tr>
+<tr>
+<td><code>R-2</code>..<code>R7</code></td>
+<td>Fixed range (see table below)</td>
+</tr>
+<tr>
+<td><code>N3</code> / <code>N4</code> / <code>N5</code></td>
+<td>3.5 / 4.5 / 5.5 digits</td>
+</tr>
+<tr>
+<td><code>Z0</code> / <code>Z1</code></td>
+<td>Autozero off / on</td>
+</tr>
+<tr>
+<td><code>T1</code></td>
+<td>Internal trigger (free running)</td>
+</tr>
+<tr>
+<td><code>T2</code></td>
+<td>External trigger</td>
+</tr>
+<tr>
+<td><code>T3</code></td>
+<td>Single trigger (take one reading now)</td>
+</tr>
+<tr>
+<td><code>T4</code></td>
+<td>Trigger hold</td>
+</tr>
+<tr>
+<td><code>T5</code></td>
+<td>Fast trigger</td>
+</tr>
+<tr>
+<td><code>H0</code>..<code>H7</code></td>
+<td>Home/preset: H0 = DCV, autorange, 4.5 digits, autozero, hold. H1..H7
+= preset + single reading of F1..F7</td>
+</tr>
+<tr>
+<td><code>D1</code></td>
+<td>Normal display</td>
+</tr>
+<tr>
+<td><code>D2text</code></td>
+<td>Show text on the display</td>
+</tr>
+<tr>
+<td><code>D3text</code></td>
+<td>Show text and stop display updates</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>Returns 1 if FRONT input terminals selected, 0 if REAR</td>
+</tr>
+<tr>
+<td><code>B</code></td>
+<td>Returns 5 binary status bytes</td>
+</tr>
+<tr>
+<td><code>E</code></td>
+<td>Returns error register</td>
+</tr>
+<tr>
+<td><code>K</code></td>
+<td>Clear serial poll register</td>
+</tr>
+</tbody>
+</table>
+<p>Range codes (each range is 3 x 10^n):</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>DC V</th>
+<th>AC V</th>
+<th>Ohms</th>
+<th>DC/AC A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>R-2</code></td>
+<td>30 mV</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>R-1</code></td>
+<td>300 mV</td>
+<td>300 mV</td>
+<td>-</td>
+<td>300 mA</td>
+</tr>
+<tr>
+<td><code>R0</code></td>
+<td>3 V</td>
+<td>3 V</td>
+<td>-</td>
+<td>3 A</td>
+</tr>
+<tr>
+<td><code>R1</code></td>
+<td>30 V</td>
+<td>30 V</td>
+<td>30 ohm</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>R2</code></td>
+<td>300 V</td>
+<td>300 V</td>
+<td>300 ohm</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>R3</code>..<code>R7</code></td>
+<td>-</td>
+<td>-</td>
+<td>3 k .. 30 M ohm</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Readings come back as text like <code>+1.23456E+0</code>. Over range
+is returned as <code>+9.99999E+9</code>.</p>
+<p><strong>Check the FRONT/REAR switch</strong> on the meter. The leads
+must be on the terminals it selects.</p>
+<h3 id="quick-interactive-test">Quick interactive test</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ibterm <span class="at">-d</span> 23</span></code></pre></div>
+<p>Type <code>H1</code> and press Enter. The meter takes one DC volts
+reading and ibterm shows it. (Typing <code>*IDN?</code> gives nothing or
+a syntax error. That is normal for this meter.)</p>
+<h3 id="minimal-python">Minimal Python</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gpib</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dmm <span class="op">=</span> gpib.dev(<span class="dv">0</span>, <span class="dv">23</span>)                  <span class="co"># board 0, address 23</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>gpib.write(dmm, <span class="st">&quot;F1RAZ1N5T3</span><span class="ch">\r\n</span><span class="st">&quot;</span>)      <span class="co"># DC volts, autorange, autozero, 5.5 digits, one reading</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">float</span>(gpib.read(dmm, <span class="dv">64</span>)))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>gpib.write(dmm, <span class="st">&quot;D2HELLO</span><span class="ch">\r\n</span><span class="st">&quot;</span>)         <span class="co"># text on the display</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>gpib.write(dmm, <span class="st">&quot;D1</span><span class="ch">\r\n</span><span class="st">&quot;</span>)              <span class="co"># normal display</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>gpib.ibloc(dmm)                        <span class="co"># back to front-panel control</span></span></code></pre></div>
+<h3 id="logger-script-hp3478a_log.py">Logger script:
+<code>hp3478a_log.py</code></h3>
+<p>The command is <code>hp3478a-log</code> (the program is
+<code>pi/instruments/hp3478a/hp3478a_log.py</code>). Module menu item 1
+asks the questions for you and saves the readings in
+<code>~/pi-gpibterm/logs</code>.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-log</span>                              <span class="co"># 10 DC volt readings, address 23</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-log</span> <span class="at">-f</span> ohm2 <span class="at">-n</span> 0 <span class="at">-i</span> 1            <span class="co"># 2-wire ohms every 1 s until Ctrl+C</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-log</span> <span class="at">-f</span> dcv <span class="at">-r</span> 1 <span class="at">-n</span> 100 <span class="at">--csv</span> log.csv   <span class="co"># 30 V range, 100 readings to CSV</span></span></code></pre></div>
+<p>Options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td>GPIB address</td>
+<td>23</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>dcv</code>, <code>acv</code>, <code>ohm2</code>,
+<code>ohm4</code>, <code>dca</code>, <code>aca</code>,
+<code>ohmx</code></td>
+<td>dcv</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Range: <code>A</code> = auto, or a code -2..7</td>
+<td>A</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>Digits: 3, 4 or 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Number of readings, 0 = until Ctrl+C</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Seconds between readings</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td><code>--csv</code></td>
+<td>Append readings to a CSV file</td>
+<td>off</td>
+</tr>
+</tbody>
+</table>
+<p>When it finishes, the script puts the meter back into free-running
+mode and front-panel control. Over-range readings are shown as OVERLOAD
+and left blank in the CSV.</p>
+<h3 id="hp-ib-terminal-hpib">HP-IB Terminal: <code>hpib</code></h3>
+<p>An interactive HP-IB programming environment. It has the commands of
+the HP 82990A HP-IB Command Library (<code>IOOUTPUTS</code>,
+<code>IOENTER</code>, <code>IOSPOLL</code> …) and a BASIC with line
+numbers, so you can type commands one at a time or write, save and run
+programs. Start with <code>HP-IB-Terminal-Introduction.md</code>; the
+reference is <code>HP-IB-Terminal-Guide.md</code>.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span>                                   <span class="co"># or menu item 1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">HP-IB</span><span class="op">&gt;</span> ASK 723, <span class="st">&quot;H1&quot;</span>                  <span class="co"># one DC volts reading</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">HP-IB</span><span class="op">&gt;</span> HELP</span></code></pre></div>
+<h2 id="back-up-and-restore-the-calibration-ram-battery-replacement">2.
+Back up and restore the calibration RAM (battery replacement)</h2>
+<p>The 3478A stores its calibration constants in a 256 x 4-bit SRAM
+(U512). An internal 3 V lithium battery (BT701) keeps it powered when
+the meter is unplugged. If the battery dies or is removed with no other
+power, <strong>the calibration is lost</strong>. The display then shows
+<code>CAL</code> on the affected ranges, and the readings are wrong.</p>
+<p>This was cross-checked against Tom Verbeure’s scripts and write-up: -
+https://github.com/tomverbeure/hp3478a_calibration -
+https://tomverbeure.github.io/2022/12/02/HP3478A-Multimeter-Calibration-Data-Backup-and-Battery-Replacement.html</p>
+<p>It was also checked against the pymeasure HP3478A driver,
+pyAsyncHP3478A, and https://github.com/vinayshanbhag/hp3478a. This tool
+decodes Vinay’s sample dump to the same offset/gain values his README
+lists.</p>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>W</code> + raw address byte</td>
+<td>Meter returns 1 character: 64 + the stored nibble
+(<code>@</code>..<code>O</code>)</td>
+</tr>
+<tr>
+<td><code>X</code> + raw address byte + nibble</td>
+<td>Stores the low 4 bits. Works <strong>only</strong> with the
+front-panel CAL ENABLE switch on</td>
+</tr>
+<tr>
+<td><code>B</code></td>
+<td>5 status bytes. Byte 2, bit 5 = CAL RAM write enabled. This is how
+the script checks the switch</td>
+</tr>
+</tbody>
+</table>
+<p>Memory layout: - <strong>Address 0:</strong> a read/write check
+nibble the meter uses to test write protection. It isn’t calibration
+data, and restore doesn’t write it. The sources disagree on what its
+value means for the CAL switch, so the script reads the switch from the
+<code>B</code> status byte instead. - <strong>Addresses 1-247:</strong>
+19 entries of 13 nibbles each: a 6-nibble offset, a 5-nibble gain, and a
+2-nibble checksum. For each entry, the sum of the 11 data nibbles plus
+the 8-bit checksum must equal 255. Entries 5, 16 and 18 are unused. -
+<strong>Addresses 248-255:</strong> not used.</p>
+<p>With CAL ENABLE off, the switch hard-wires the SRAM to read-only.
+That means backup and verify <strong>can’t</strong> change the
+calibration.</p>
+<h3 id="files-written-by-backup">Files written by
+<code>backup</code></h3>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th>File</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calram_&lt;date&gt;.txt</code></td>
+<td>16 lines of 16 characters <code>@</code>..<code>O</code> (same as
+pyAsyncHP3478A)</td>
+</tr>
+<tr>
+<td><code>calram_&lt;date&gt;.bin</code></td>
+<td>256 raw nibble values 0-15 (same as Tom’s
+<code>hp3478a_cal_data.bin</code>)</td>
+</tr>
+<tr>
+<td><code>calram_&lt;date&gt;.info.txt</code></td>
+<td>Human-readable decode: offset, gain and checksum for each range</td>
+</tr>
+</tbody>
+</table>
+<p><code>verify</code>, <code>restore</code> and <code>decode</code>
+accept any of these formats: - the <code>.txt</code> or
+<code>.bin</code> written by this tool - a <code>.bin</code> made by
+Tom’s script (raw values 0-15) - a dump made by Vinay’s
+<code>hp3478a_cal_ram_util.py</code> (256 raw
+<code>@</code>..<code>O</code> bytes)</p>
+<h3
+id="commands-module-menu-items-2-5-or-on-the-pi-in-pi-gpibtermbackups">Commands
+(module menu items 2-5, or on the Pi in
+<code>~/pi-gpibterm/backups</code>)</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/pi-gpibterm/backups</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-cal</span> backup                 <span class="co"># .txt + .bin + .info.txt</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-cal</span> verify  calram_X.txt   <span class="co"># does the meter still match the backup?</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-cal</span> restore calram_X.txt   <span class="co"># write it back (CAL ENABLE on)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-cal</span> decode  calram_X.bin   <span class="co"># show a file&#39;s contents, no meter needed</span></span></code></pre></div>
+<p>Add <code>-a &lt;address&gt;</code> if the meter isn’t at 23.</p>
+<p>Safety features (beyond Tom’s scripts, which write without checking):
+- <strong>backup</strong> reads the RAM twice and only saves if both
+reads match. It never overwrites a file and checks every entry’s
+checksum. - <strong>restore</strong> refuses a file with bad checksums
+and checks the CAL ENABLE status bit. After you type <code>YES</code>,
+it saves the meter’s current RAM to
+<code>calram_before_restore_&lt;date&gt;.txt</code>. It then writes each
+nibble, reads it back (retrying up to 3 times), and verifies the whole
+RAM at the end.</p>
+<h3 id="saving-from-the-hp-ib-terminal">Saving from the HP-IB
+Terminal</h3>
+<p>The HP-IB Terminal has a BASIC program that does the same backup:
+<code>examples/3478a_calsave.bas</code>. It reads twice, checks the
+checksums, and writes the same <code>.txt</code>, <code>.bin</code> and
+<code>.info.txt</code> files into <code>~/pi-gpibterm/backups</code>, so
+<code>verify</code>, <code>restore</code> and
+<code>deploy.ps1 pull</code> work with them. It only reads, so restoring
+is still done with <code>hp3478a-cal restore</code>.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pi-gpibterm</span>                    <span class="co"># menu item 3, then 3478a_calsave</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span> examples/3478a_calsave.bas <span class="at">--run</span>     <span class="co"># the same, from ~/pi-gpibterm</span></span></code></pre></div>
+<h3 id="battery-replacement-procedure">Battery replacement
+procedure</h3>
+<p>The replacement is a 3 V lithium cell with solder pins,
+e.g. Panasonic <strong>BR-2/3AE5SPN</strong> (Digikey). It’s soldered
+onto the PCB, not in a socket.</p>
+<ol type="1">
+<li><strong>Before touching anything:</strong> let the meter warm up,
+then run module menu item 2 (backup) and item 3 (verify). From the PC,
+use <code>.\pc\deploy.ps1 backup</code> and
+<code>.\pc\deploy.ps1 verify -File calram_....txt</code>. Check the
+<code>.info.txt</code> says “all used entries valid”.</li>
+<li>Copy the backup files from <code>~/pi-gpibterm/backups</code> to the
+PC (<code>.\pc\deploy.ps1 pull</code> does it), and keep a second copy
+somewhere else, e.g. a USB stick.</li>
+<li><strong>Unplug the meter’s power cable</strong>, then desolder the
+old battery and solder in the new one. Tom found the calibration
+survived the swap without a restore. A capacitor (C510) seems to hold
+the SRAM long enough, but don’t count on it.
+<ul>
+<li>Don’t swap the battery with the meter powered. That means working
+near live mains, and an earthed soldering iron can short things. Tom’s
+advice is “just don’t do it”.</li>
+<li>Another option is a temporary 3 V supply (2 x AA) with its own
+diode, soldered across during the swap. That’s mainly for people without
+GPIB. You have GPIB, so backup and restore is simpler.</li>
+<li>While it’s open: Tom also recommends replacing the <strong>RIFA
+mains-filter capacitors</strong>. They’re a known fire risk even with
+the meter switched off but plugged in.</li>
+</ul></li>
+<li>Plug in, power up, and run <code>verify</code> against your backup.
+<ul>
+<li><strong>MATCH:</strong> done.</li>
+<li><strong>DIFFERENT</strong>, or <code>CAL</code> showing on the
+display: continue to step 5.</li>
+</ul></li>
+<li>Set the front-panel <strong>CAL ENABLE</strong> switch on, then run
+module menu item 5 (restore), or
+<code>.\pc\deploy.ps1 restore -File calram_....txt</code> from the
+PC.</li>
+<li>Set CAL ENABLE back off (slot horizontal), power-cycle the meter,
+and run <code>verify</code> again. Then check readings against a known
+voltage and resistance.</li>
+</ol>
+<p>Make a fresh <code>backup</code> from time to time, and always before
+opening the meter.</p>
+<h2 id="if-something-doesnt-work">3. If something doesn’t work</h2>
+<ul>
+<li><strong>Timeouts:</strong> check the rear-panel address switches
+(the meter reads them at power-on), and the address in the module’s
+menu.</li>
+<li><strong>SRQ / ERR annunciator on the meter:</strong> usually a
+syntax error, e.g. a SCPI command like <code>*IDN?</code> was sent. Send
+<code>K</code> to clear it, or press LOCAL.</li>
+<li><strong>Readings near zero / wrong:</strong> check the FRONT/REAR
+terminal switch.</li>
+<li><strong>The meter keeps sending readings after <code>T4</code>, or
+the calibration backup says <code>Unexpected reply "+"</code> (or
+<code>"-"</code>):</strong> the meter is in local (RMT annunciator off),
+because the bus’s REN line is off. Type <code>IOREMOTE 7</code> in the
+HP-IB Terminal. The module’s tools and examples set it themselves.</li>
+<li>Bus and driver problems: section 5 of
+<code>pi-GPIBTerm-Setup-Guide.md</code>.</li>
+</ul>
+<h2 id="credits">Credits</h2>
+<p>The calibration tools follow and cross-check the HP 3478A calibration
+research of Tom Verbeure, PyMeasure, Patrick Baus and Vinay Shanbhag.
+<code>THIRD-PARTY-NOTICES.md</code> (section 4) says what came from
+each, and the licenses. The module is part of pi-GPIBTerm, free software
+under the GNU General Public License version 3
+(<code>GPL-3.0-only</code>); see <code>LICENSE</code>.</p>
+</body>
+</html>

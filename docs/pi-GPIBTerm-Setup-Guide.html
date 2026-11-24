@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pi-GPIBTerm Setup Guide</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+
+<header id="title-block-header">
+<h1 class="title">pi-GPIBTerm Setup Guide</h1>
+</header>
+<h1
+id="pi-gpibterm-setup-guide-gpib-on-a-raspberry-pi-with-the-lightside-gpib4pi">pi-GPIBTerm
+Setup Guide: GPIB on a Raspberry Pi with the Lightside gpib4pi</h1>
+<p>pi-GPIBTerm v2.0.5</p>
+<p>pi-GPIBTerm turns a Raspberry Pi with a Lightside Instruments gpib4pi
+board into an HP-IB (GPIB) workstation for any GPIB instrument: the
+HP-IB Terminal (an HP 82990A HP-IB Command Library work-alike with
+BASIC), a menu, and instrument modules for particular instruments (so
+far the HP 3478A multimeter, see <code>HP3478A-Module-Guide.md</code>).
+This guide covers installing it and the hardware.</p>
+<p>The Lightside board (“gpib4pi”) doesn’t come with its own software.
+It uses the standard <strong>linux-gpib</strong> driver
+(<code>gpib_bitbang</code>), which drives the GPIB lines directly from
+the Pi’s GPIO pins.</p>
+<p>References: - Product page (Lightside Instruments AS, Norway):
+https://lightside-instruments.com/product/gpib4pi/ - Quick start guide:
+https://www.hackster.io/lightside-instruments/the-gpib4pi-gpib-for-raspberry-pi-shield-4b3e9a
+(the same text is at
+https://github.com/lightside-instruments/docs/tree/gpib4pi-guide) -
+Board design files (KiCad, schematic, BOM, CHANGELOG):
+https://github.com/lightside-instruments/gpib4pi - Lightside’s
+linux-gpib packages:
+https://github.com/lightside-instruments/gpib-debian - linux-gpib docs:
+https://linux-gpib.sourceforge.io/doc_html/supported-hardware.html</p>
+<hr />
+<h2 id="install-and-use">0. Install and use</h2>
+<p>Everything installs and runs on the Pi itself. No PC is needed.</p>
+<p><strong>Install</strong> on a fresh Raspberry Pi OS Lite. The details
+are in the project’s <code>README.md</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get <span class="at">-y</span> install git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>your-account<span class="op">&gt;</span>/pi-GPIBTerm.git</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> pi-GPIBTerm <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> bash install.sh</span></code></pre></div>
+<p>You can also download a release package instead of using git:
+<code>tar xzf pi-GPIBTerm-&lt;version&gt;.tar.gz</code>, then
+<code>cd pi-GPIBTerm-&lt;version&gt;</code> and
+<code>sudo bash install.sh</code>. The first installation builds
+linux-gpib (sections 2 and 3, done for you) and takes an hour or more on
+a Pi Zero 2 W. Running it again later updates the programs in seconds.
+Log out and back in once afterwards, so you can use the GPIB board
+without <code>sudo</code>.</p>
+<p><strong>Use</strong> it by typing <code>pi-gpibterm</code> to open
+the menu. It offers the HP-IB Terminal (with an instrument or the
+simulator), the BASIC programs, a bus scan, an installation check and a
+driver rebuild, and a section for each instrument module. The same tools
+are also commands:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pi-gpibterm</span>                     <span class="co"># the menu (or ~/pi-gpibterm/menu)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hpib</span>                            <span class="co"># HP-IB Terminal;  hpib --sim  = practise without an instrument</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">gpib-driver-rebuild</span>             <span class="co"># rebuild the driver by hand (after a kernel update)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hp3478a-log,</span> hp3478a-cal        <span class="co"># the HP 3478A module&#39;s tools (HP3478A-Module-Guide.md)</span></span></code></pre></div>
+<p><strong>Where things are on the Pi:</strong></p>
+<pre><code>/opt/pi-gpibterm/                the programs, examples/*.bas, docs/*.pdf (install.sh keeps it current)
+  instruments/&lt;name&gt;/            the instrument modules (hp3478a: its tools and examples)
+/usr/local/bin/                  the commands above
+~/pi-gpibterm/                   YOUR folder - install.sh never overwrites anything in it
+  menu                           starts the menu
+  programs/                      your own BASIC programs: SAVE &quot;programs/name&quot;
+  backups/, logs/                what the instrument modules save (e.g. HP 3478A calibration backups)
+  pi-gpibterm.conf               settings made in the menu (e.g. HP3478A_ADDRESS)</code></pre>
+<p><strong>After a kernel update</strong> (<code>apt upgrade</code>),
+the driver must be rebuilt for the new kernel. The Pi does this by
+itself on the next boot
+(<code>pi-gpibterm-driver-rebuild.service</code>), so that boot takes a
+few minutes longer on a Pi Zero.</p>
+<p><strong>To remove it:</strong> <code>sudo bash uninstall.sh</code>
+(add <code>--driver</code> to also remove the services). Your
+<code>~/pi-gpibterm</code> folder is kept.</p>
+<h3 id="pi-zero-2-w-notes-and-the-original-zero-w">Pi Zero 2 W notes
+(and the original Zero W)</h3>
+<ul>
+<li>This project runs on a <strong>Raspberry Pi Zero 2 W</strong>:
+quad-core 64-bit ARM (Cortex-A53, 1 GHz), 512 MB of RAM, 2.4 GHz Wi-Fi.
+It runs <strong>Raspberry Pi OS Lite (32-bit)</strong>. The 64-bit image
+also works on the Zero 2 W, but the 32-bit one leaves more of its 512 MB
+free.</li>
+<li>The original <strong>Zero W is ARMv6, 32-bit only</strong>. It needs
+the 32-bit image, because the 64-bit one won’t boot on it. It works too,
+just more slowly.</li>
+<li>In Raspberry Pi Imager, set a username/password, Wi-Fi (2.4 GHz
+only), and enable SSH.</li>
+<li>Give the Pi a fixed address, such as a DHCP reservation in your
+router. Then <code>ssh &lt;user&gt;@&lt;address&gt;</code> always finds
+it (<code>&lt;hostname&gt;.local</code> usually works too).</li>
+<li>Both have only 512 MB of RAM, so the installer raises swap to 1 GB
+for the build. The build takes an hour or more, and longer on the
+single-core Zero W. Running the programs afterwards is light.</li>
+<li>Python on the Pi is 3.11 (Bookworm) or 3.13 (Trixie). The programs
+use only the standard library plus linux-gpib’s <code>gpib</code>
+module. They’re tested with Python 3.9, 3.11, 3.13 and 3.14.</li>
+</ul>
+<h3 id="developing-on-a-windows-pc-optional">Developing on a Windows PC
+(optional)</h3>
+<p>This is how the project was developed: edit and test on the PC, then
+install on the Pi over SSH.</p>
+<pre><code>pi-GPIBTerm\
+  install.sh, uninstall.sh         the installer, run on the Pi
+  README.md                        the project page on GitHub
+  *.pdf                            the guides, built from docs\
+  pi\                              everything that runs on the Pi (the generic core)
+    gpibterm_menu.py               the menu (command pi-gpibterm)
+    hpibterm.py                    HP-IB Terminal (+ hpiblib, hpibbasic, hpibhelp, hpib_sim .py)
+    setup_pi.sh                    linux-gpib build, gpib.conf, services (install.sh runs it)
+    gpib_driver_rebuild.sh         driver rebuild for a new kernel
+    run.sh                         starts a program (with sudo if you can&#39;t use /dev/gpib0 yet)
+    examples\*.bas                 example programs for the terminal
+    instruments\hp3478a\           the HP 3478A module: module.py (its menu section), COMMANDS,
+                                   hp3478a_log.py, hp3478a_cal.py, examples\*.bas
+  docs\                            guide sources (*.md), HTML copies, build_docs.ps1, doc-print.css
+  pc\deploy.ps1                    from the PC: install on the Pi, run there, fetch backups
+  pc\make_kit.ps1                  builds the release package dist\pi-GPIBTerm-&lt;version&gt;.tar.gz
+  dev\                             tests (run_tests.py; test_install.sh and test_kit.sh on Linux)
+  LICENSE, LICENSES\               GNU GPL version 3, and third-party license texts
+  backups\                         calibration backups copied back from the Pi
+  reference-local\                 your own copies of manuals; ignored by git, never published</code></pre>
+<p>Everyday commands, in PowerShell from the project folder:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">$env</span><span class="op">:</span><span class="va">PI_GPIBTERM_USER</span> <span class="op">=</span> <span class="st">&#39;someone&#39;</span>   <span class="co"># only if your Pi username isn&#39;t willard (the default); host defaults to 192.168.1.200</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># other Pi: -PiHost x.x.x.x  or  $env:PI_GPIBTERM_HOST = &#39;x.x.x.x&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> setup                  <span class="co"># full installation on the Pi (runs install.sh there)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> push                   <span class="co"># install the latest programs (install.sh --no-driver)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> check                  <span class="co"># Pi model, OS, Python, driver service, /dev/gpib0</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> menu                   <span class="co"># the menu on the Pi</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> term                   <span class="co"># push, then the HP-IB Terminal on the Pi</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> sim                    <span class="co"># HP-IB Terminal on this PC with a simulated meter</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> test                   <span class="co"># push, then take 5 DC volt readings</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> backup                 <span class="co"># calibration backup on the Pi, copied to .\backups</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> verify  <span class="op">-</span>File calram_YYYYMMDD_HHMMSS<span class="op">.</span><span class="fu">txt</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> restore <span class="op">-</span>File calram_YYYYMMDD_HHMMSS<span class="op">.</span><span class="fu">txt</span>   <span class="co"># CAL ENABLE on; type YES</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> pull                   <span class="co"># fetch all backups from the Pi</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\deploy<span class="op">.</span><span class="fu">ps1</span> shell                  <span class="co"># SSH into the Pi</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\pc\make_kit<span class="op">.</span><span class="fu">ps1</span>                      <span class="co"># build the release package for GitHub</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\docs\build_docs<span class="op">.</span><span class="fu">ps1</span>                  <span class="co"># rebuild the PDF + HTML guides after editing a .md</span></span></code></pre></div>
+<p>Add <code>-Address N</code> for the HP 3478A module’s meter address,
+or <code>-DryRun</code> to only print the ssh/scp commands.
+<code>deploy.ps1</code> installs the same release package that
+<code>make_kit.ps1</code> builds, with the same <code>install.sh</code>,
+so what you test is exactly what other people get. Test on the PC
+first:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>python dev\run_tests<span class="op">.</span><span class="fu">py</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wsl bash dev<span class="op">/</span>test_install<span class="op">.</span><span class="fu">sh</span>           <span class="co"># if you have WSL: installs into a scratch folder, drives the menu</span></span></code></pre></div>
+<hr />
+<h2 id="hardware">1. Hardware</h2>
+<h3 id="the-setup-used-for-this-project">The setup used for this
+project</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr>
+<th>Part</th>
+<th>What is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIB adapter</td>
+<td><strong>Lightside Instruments gpib4pi</strong>, board
+<strong>lsi-gpib4pi-2.x</strong> (2.1 is the current revision), from
+https://lightside-instruments.com/product/gpib4pi/ (EUR 39; also on
+Amazon as B0BY32HH4G; EAN 7090060720065)</td>
+</tr>
+<tr>
+<td>Computer</td>
+<td><strong>Raspberry Pi Zero 2 W</strong> (quad-core Cortex-A53, 512 MB
+RAM, 2.4 GHz Wi-Fi)</td>
+</tr>
+<tr>
+<td>Operating system</td>
+<td><strong>Raspberry Pi OS Lite, 32-bit</strong> (Bookworm or Trixie),
+no desktop; kernel <code>rpi-v7</code></td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Wi-Fi, fixed address <strong>192.168.1.200</strong> (DHCP
+reservation), SSH enabled</td>
+</tr>
+<tr>
+<td>GPIB software</td>
+<td><strong>linux-gpib 4.3.6</strong> in Lightside’s packaging, branch
+<code>debian/4.3.6-lsi8</code> of <code>gpib-debian</code> (4.3.5-lsi4
+on Bullseye or older)</td>
+</tr>
+<tr>
+<td>Driver</td>
+<td><code>gpib_bitbang</code> kernel module, default pin map
+(<code>elektronomikon</code>), loaded at boot by
+<code>gpib.service</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Raspberry Pi OS’s <code>python3</code> (3.11 on Bookworm, 3.13 on
+Trixie), plus <code>python3-gpib</code> from the build</td>
+</tr>
+<tr>
+<td>Instrument</td>
+<td><strong>HP 3478A</strong> multimeter at GPIB address
+<strong>23</strong>; the Pi is the controller at address 0</td>
+</tr>
+</tbody>
+</table>
+<p>Lightside’s guide was written on a Pi 5 with 64-bit Trixie, and they
+say other models should also work. This project uses a Zero 2 W with the
+32-bit image (an original Zero W also works, and needs the 32-bit
+image). The record at the end of this section is for the actual versions
+on your Pi.</p>
+<h3 id="about-the-gpib4pi-board">About the gpib4pi board</h3>
+<p>Photos of the board, on its own and fitted to an instrument, are on
+Lightside’s product page:
+https://lightside-instruments.com/product/gpib4pi/</p>
+<ul>
+<li><strong>What it is:</strong> a GPIB (IEEE-488) interface for the
+Raspberry Pi’s 40-pin header. It has no processor of its own: the Pi
+drives the GPIB lines through its GPIO pins, using linux-gpib’s
+<code>gpib_bitbang</code> driver. It is open hardware (KiCad files
+published, OSHWA certified UID NO000003, TAPR Open Hardware
+License).</li>
+<li><strong>On the board:</strong>
+<ul>
+<li>an <strong>SN75160BN</strong> (data lines) and an
+<strong>SN75161BN</strong> (control lines), standard GPIB bus
+transceivers;</li>
+<li>bus termination resistors with the IEEE-488 values (3.3 k / 6.2
+k);</li>
+<li>a red power LED and a green activity LED (the driver uses GPIO4 as
+its activity-LED output);</li>
+<li>a 24-pin <strong>male</strong> GPIB connector, so it plugs straight
+into the instrument’s GPIB socket;</li>
+<li>a 2 x 20 socket for the Pi’s header.</li>
+</ul></li>
+<li><strong>Form factor:</strong> the board has the outline of a
+Raspberry Pi main board, not of a HAT, because of where the GPIB
+connector has to go. It has mounting holes for a Pi Zero.</li>
+<li><strong>In the box (boards bought after 2024-07-01):</strong> 2 M3.5
+stainless thumb screws to fasten the board to the instrument’s GPIB
+socket, and a stackable 2 x 20 connector that raises the board above a
+full-size Pi (a Zero doesn’t need it). The Pi itself is not
+included.</li>
+<li><strong>Power:</strong> it takes its power from the Pi’s header. The
+meter doesn’t power anything.</li>
+</ul>
+<h3 id="what-to-expect-from-the-gpib4pi">What to expect from the
+gpib4pi</h3>
+<ul>
+<li><strong>It is not a plug-and-play USB adapter.</strong> It needs a
+kernel module (linux-gpib’s <code>gpib_bitbang</code>) built for your
+kernel, a linux-gpib configuration, and the right GPIO pin map for your
+board revision. <code>install.sh</code> does all three, and the Pi
+rebuilds the module by itself after a kernel update. It is still useful
+to know they are there when something goes wrong.</li>
+<li><strong>It controls many legacy GPIB instruments</strong> from
+Linux: through pi-GPIBTerm, or from your own programs in Python
+(<code>import gpib</code>) or C (<code>libgpib</code>).</li>
+<li><strong>The Pi must be the system controller.</strong> The bitbang
+driver can only act as the GPIB system controller
+(<code>master = yes</code> in <code>gpib.conf</code>). It cannot be a
+plain device on a bus run by another controller, such as a PC with a
+GPIB card. pi-GPIBTerm always works as the controller, so this only
+matters if you want to share a bus with another controller: don’t.</li>
+<li><strong>No parallel poll.</strong> The driver doesn’t support
+parallel poll. <code>IOPPOLL</code> gives an error on the gpib4pi,
+although it works in the simulator. <code>IOPPOLLC</code> and
+<code>IOPPOLLU</code> still send their bus commands. To find out which
+instrument wants attention, use service requests instead:
+<code>IOSTATUS 7, 1, S</code> to see SRQ, then <code>IOSPOLL</code> each
+instrument (<code>examples/3478a_srq.bas</code> shows how).</li>
+<li><strong>No adjustable T1 timing.</strong> T1 is the settling delay
+between putting a byte on the data lines and signalling that it is
+valid. The driver uses its own fixed timing, which can’t be changed.
+This is fine for most instruments, and the terminal has no command for
+it anyway.</li>
+</ul>
+<h3 id="board-revisions">Board revisions</h3>
+<p>The revision is printed on the board. It decides one driver
+option:</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 59%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr>
+<th>Revision</th>
+<th>Change (from Lightside’s CHANGELOG)</th>
+<th>Driver option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>first version</td>
+<td>do not use: EOI is not connected</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>EOI connected (SN75161 to GPIO9)</td>
+<td><code>pin_map=gpib4pi-1.1</code> (REN is on GPIO0)</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>moved to KiCad 6, no circuit change</td>
+<td><code>pin_map=gpib4pi-1.1</code></td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>REN moved to GPIO27 (pin 13), as on the elektronomikon board</td>
+<td>none: the default pin map</td>
+</tr>
+<tr>
+<td><strong>2.1</strong></td>
+<td>logo and 3D model only, no circuit change</td>
+<td>none: the default pin map</td>
+</tr>
+</tbody>
+</table>
+<p>So for the lsi-gpib4pi-2.x, nothing extra is needed. The installer
+uses the default unless you run it as
+<code>sudo PIN_MAP=gpib4pi-1.1 bash install.sh</code> for a 1.x
+board.</p>
+<h3 id="gpio-pin-map-2.x-board-from-the-gpib_bitbang-driver-source">GPIO
+pin map (2.x board, from the <code>gpib_bitbang</code> driver
+source)</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>GPIB signal</th>
+<th>GPIB pin</th>
+<th>Pi GPIO</th>
+<th>Pi header pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIO1</td>
+<td>1</td>
+<td>GPIO20</td>
+<td>38</td>
+</tr>
+<tr>
+<td>DIO2</td>
+<td>2</td>
+<td>GPIO26</td>
+<td>37</td>
+</tr>
+<tr>
+<td>DIO3</td>
+<td>3</td>
+<td>GPIO16</td>
+<td>36</td>
+</tr>
+<tr>
+<td>DIO4</td>
+<td>4</td>
+<td>GPIO19</td>
+<td>35</td>
+</tr>
+<tr>
+<td>DIO5</td>
+<td>13</td>
+<td>GPIO13</td>
+<td>33</td>
+</tr>
+<tr>
+<td>DIO6</td>
+<td>14</td>
+<td>GPIO12</td>
+<td>32</td>
+</tr>
+<tr>
+<td>DIO7</td>
+<td>15</td>
+<td>GPIO6</td>
+<td>31</td>
+</tr>
+<tr>
+<td>DIO8</td>
+<td>16</td>
+<td>GPIO5</td>
+<td>29</td>
+</tr>
+<tr>
+<td>EOI</td>
+<td>5</td>
+<td>GPIO9</td>
+<td>21</td>
+</tr>
+<tr>
+<td>DAV</td>
+<td>6</td>
+<td>GPIO10</td>
+<td>19</td>
+</tr>
+<tr>
+<td>NRFD</td>
+<td>7</td>
+<td>GPIO24</td>
+<td>18</td>
+</tr>
+<tr>
+<td>NDAC</td>
+<td>8</td>
+<td>GPIO23</td>
+<td>16</td>
+</tr>
+<tr>
+<td>IFC</td>
+<td>9</td>
+<td>GPIO22</td>
+<td>15</td>
+</tr>
+<tr>
+<td>SRQ</td>
+<td>10</td>
+<td>GPIO11</td>
+<td>23</td>
+</tr>
+<tr>
+<td>ATN</td>
+<td>11</td>
+<td>GPIO25</td>
+<td>22</td>
+</tr>
+<tr>
+<td>REN</td>
+<td>17</td>
+<td>GPIO27 (GPIO0 on 1.x boards)</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Transceiver control: PE / DC / TE</td>
+<td>-</td>
+<td>GPIO7 / GPIO8 / GPIO18</td>
+<td>26 / 24 / 12</td>
+</tr>
+<tr>
+<td>Activity LED</td>
+<td>-</td>
+<td>GPIO4</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Ground</td>
+<td>12, 18-24</td>
+<td>-</td>
+<td>14, 20, 25, 30, 34, 39</td>
+</tr>
+</tbody>
+</table>
+<p>These pins belong to the driver while it is loaded. Don’t use them
+for anything else (no SPI0, since GPIO7-11 are SPI0’s pins). The
+driver’s numbers are GPIO numbers. Recent kernels number the GPIO chip
+from an offset (512 on most Pis, 571 on a Pi 5), which is why the driver
+needs <code>gpio_offset=</code> (section 3).</p>
+<h3 id="fitting-it">Fitting it</h3>
+<ul>
+<li>Plug the gpib4pi straight into the GPIB socket on the back of the
+meter and fasten it with the M3.5 thumbscrews. The Pi Zero sits on the
+board’s 40-pin socket. No GPIB cable is needed.</li>
+<li>With a full-size Pi, use the stackable 2 x 20 connector from the
+package to raise the board.</li>
+<li>Power the Pi from its own USB supply.</li>
+<li>Find the meter’s GPIB address: on the HP 3478A it is set with the
+<strong>address DIP switches on the rear panel</strong> (factory default
+<strong>23</strong>). Changes take effect at power-up.</li>
+<li>The Pi is the controller at address <strong>0</strong>. The meter
+must not use 0.</li>
+<li>The board’s SN75160/SN75161 transceivers drive the bus the standard
+IEEE-488 way. (The driver’s note about reduced fan-out, around 4
+instruments, is for boards without these chips.) So more instruments can
+be daisy-chained with GPIB cables if needed. A bit-banged bus is slower
+than a commercial interface, which doesn’t matter for a meter.</li>
+</ul>
+<h3 id="record-of-this-installation">Record of this installation</h3>
+<p>Fill this in once the Pi is set up. Menu item 9 (<em>Check the
+installation</em>) or <code>.\pc\deploy.ps1 check</code> prints these
+items, so you can copy them from its output.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pi model</td>
+<td></td>
+</tr>
+<tr>
+<td>Raspberry Pi OS release</td>
+<td></td>
+</tr>
+<tr>
+<td>Kernel (<code>uname -r</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Python version</td>
+<td></td>
+</tr>
+<tr>
+<td>linux-gpib package version</td>
+<td></td>
+</tr>
+<tr>
+<td>GPIO offset used</td>
+<td></td>
+</tr>
+<tr>
+<td>gpib4pi board revision (silkscreen)</td>
+<td></td>
+</tr>
+<tr>
+<td>Pi host name / IP address</td>
+<td>192.168.1.200</td>
+</tr>
+<tr>
+<td>Meter serial number / GPIB address</td>
+<td>/ 23</td>
+</tr>
+</tbody>
+</table>
+<h2 id="software-on-the-pi">2. Software, on the Pi</h2>
+<p><strong>Easy way:</strong> <code>sudo bash install.sh</code> (section
+0). It does everything in sections 2 and 3: - the build -
+<code>/usr/etc/gpib.conf</code> - GPIO offset detection - a
+<code>gpib.service</code> that loads the driver at every boot - a boot
+check that rebuilds the driver after a kernel update - access to
+<code>/dev/gpib0</code> for the <code>gpib</code> group</p>
+<p>It’s safe to re-run. For the old v1.1 board, run
+<code>sudo PIN_MAP=gpib4pi-1.1 bash install.sh</code>.</p>
+<p><strong>Manual way</strong> (what the script does). Flash Raspberry
+Pi OS Lite (32-bit), enable Wi-Fi/SSH, then:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get <span class="at">-y</span> upgrade</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> reboot</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install git rsync devscripts dh-python bison flex doxygen docbook-utils <span class="dt">\</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  docbook-to-man tcl8.6-dev python3-all-dev python3-setuptools debhelper autotools-dev <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  automake module-assistant</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> debian/4.3.6-lsi8 https://github.com/lightside-instruments/gpib-debian.git gpib</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-rav</span> gpib/ gpib_4.3.6</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> gpib_4.3.6/.git gpib_4.3.6/debian</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> gpib_4.3.6.orig.tar.gz gpib_4.3.6</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> gpib_4.3.6</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> gpib <span class="kw">&amp;&amp;</span> <span class="ex">debuild</span> <span class="at">-us</span> <span class="at">-uc</span> <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> <span class="pp">*</span>.deb</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> module-assistant auto-install gpib-modules-source</span></code></pre></div>
+<p>Notes: - On a Pi Zero 2 W this build takes an hour or more, and
+longer on an original Zero W. - If your OS is older than Bookworm, use
+branch <code>debian/4.3.5-lsi4</code> instead.</p>
+<h2 id="configuration">3. Configuration</h2>
+<p>Edit <code>/usr/etc/gpib.conf</code> and put in this interface block
+for the gpib4pi board. Instruments need no <code>device</code> blocks:
+the programs address them by number (723 = select code 7, bus address
+23).</p>
+<pre><code>interface {
+    minor = 0
+    board_type = &quot;gpib_bitbang&quot;
+    name = &quot;gpib0&quot;
+    pad = 0
+    sad = 0
+    timeout = T3s
+    eos = 0x0a
+    set-reos = yes
+    set-bin = no
+    set-xeos = no
+    set-eot = yes
+    base = 0
+    irq = 0
+    dma = 0
+    master = yes
+}</code></pre>
+<p>Next, find the GPIO offset:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cat /sys/kernel/debug/gpio</span></code></pre></div>
+<p>Look at the line for GPIO0/ID_SDA. Its number is the offset. On newer
+kernels it is often 512 (571 on a Pi 5).</p>
+<p>Load the driver and apply the config:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> modprobe gpib_bitbang gpio_offset=512</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gpib_config</span></code></pre></div>
+<ul>
+<li>If you have the older 1.1 board (check the silkscreen), add
+<code>pin_map=gpib4pi-1.1</code> to the modprobe line.</li>
+<li>You’ll need to run these two commands after every boot, unless you
+used <code>install.sh</code>, which installs <code>gpib.service</code>
+to do it.</li>
+</ul>
+<h2 id="instruments">4. Instruments</h2>
+<p><strong>Any GPIB instrument</strong> can be used from the HP-IB
+Terminal (<code>hpib</code>, or menu item 1). <code>SCAN</code>, or menu
+item 4, lists the bus addresses where an instrument answers. Address it
+as select code 7 followed by its two-digit bus address: an instrument at
+bus address 22 is device 722. Send it its commands with
+<code>IOOUTPUTS 722, "..."</code>, and read its replies with
+<code>IOENTER</code>, <code>IOENTERS</code> or
+<code>ASK 722, "..."</code>. The terminal guides explain the rest.</p>
+<p><strong>Instrument modules</strong> add ready-made tools for
+particular instruments. Each module has a section in the menu, its own
+commands, and its own example programs:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 19%" />
+<col style="width: 32%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Module</th>
+<th>Menu</th>
+<th>Commands</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HP 3478A multimeter</td>
+<td><code>H</code></td>
+<td><code>hp3478a-log</code>, <code>hp3478a-cal</code></td>
+<td><code>HP3478A-Module-Guide.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Writing a module</strong> for another instrument: make a
+folder <code>pi/instruments/&lt;name&gt;/</code> with -
+<code>module.py</code>, which defines <code>TITLE</code>,
+<code>SUMMARY</code>, <code>KEY</code> (its menu letter) and
+<code>menu(ui)</code>. The menu passes <code>ui</code>, which has
+<code>ask</code>, <code>pause</code>, <code>run</code>,
+<code>choose_file</code>,
+<code>get_setting</code>/<code>set_setting</code>, <code>work</code> and
+<code>sim</code>. The HP 3478A module is the worked example. -
+optionally <code>COMMANDS</code>, one line per command:
+<code>name  program.py  description</code>. <code>install.sh</code>
+turns each line into a command. - optionally
+<code>examples/*.bas</code>. <code>LOAD "examples/&lt;name&gt;"</code>
+and menu item 3 find them.</p>
+<p><code>install.sh</code> installs every module folder. A module must
+not change the core.</p>
+<h2 id="if-something-doesnt-work">5. If something doesn’t work</h2>
+<ul>
+<li><p><strong>Timeouts or no response:</strong> the address is wrong.
+Check the instrument’s address setting (on many older instruments,
+switches read at power-on, so power-cycle it after a change). Or the
+driver isn’t loaded (see below).</p></li>
+<li><p><strong><code>ssh: connect to host 192.168.1.200 ... timed out</code>:</strong>
+the Pi is off, or not on Wi-Fi, or has a different IP. Check your
+router’s client list, or <code>ping 192.168.1.200</code>.</p></li>
+<li><p><strong>modprobe fails:</strong> the kernel module didn’t build.
+Check that the kernel headers match the running kernel
+(<code>uname -r</code>), then re-run the module-assistant
+command.</p></li>
+<li><p><strong><code>ibBoardOpen failed to open device file /dev/gpib0</code></strong>,
+or the HP-IB Terminal warning that
+<code>/dev/gpib0 does not exist</code>: the GPIB driver isn’t loaded, so
+every bus command fails. On the Pi:</p>
+<ol type="1">
+<li><code>systemctl status gpib.service</code>: it should say
+<code>active (exited)</code>. If it says <em>could not be found</em>,
+setup was never finished: run <code>sudo bash install.sh</code> (section
+0).</li>
+<li>If it failed, <code>sudo systemctl restart gpib.service</code>, then
+<code>journalctl -u gpib.service -b</code> shows why.</li>
+<li><code>modprobe: FATAL: Module gpib_bitbang not found in directory /lib/modules/&lt;version&gt;</code>
+means there is no driver module for the running kernel. Usually
+<code>apt upgrade</code> installed a new kernel after linux-gpib was
+built. The Pi rebuilds the driver by itself at the next boot. To do it
+now, run <code>gpib-driver-rebuild</code> (or menu item R), then
+<code>sudo systemctl restart gpib.service</code>. If the rebuild fails,
+<code>journalctl -u pi-gpibterm-driver-rebuild -b</code> shows why.
+Usually the kernel headers are missing, and the Pi needs the network to
+fetch them. To stop kernel updates altogether:
+<code>sudo apt-mark hold linux-image-rpi-v6 linux-image-rpi-v7 linux-headers-rpi-v6 linux-headers-rpi-v7</code>
+(<code>apt-mark unhold ...</code> undoes it).</li>
+<li><code>ls -l /dev/gpib0</code> should then show the device file, with
+group <code>gpib</code>.</li>
+</ol></li>
+<li><p><strong>An instrument answers but ignores what you send:</strong>
+it is in local because the bus’s REN line is off, and its REMOTE/RMT
+indicator is off. In local, instruments still answer reads but ignore
+their commands: an HP 3478A keeps sending readings after
+<code>T4</code>, for example. The terminal sets REN at start-up, but
+<code>IOLOCAL 7</code> clears it. Type <code>IOREMOTE 7</code> to set it
+again.</p></li>
+<li><p><strong>Nothing answers at all, not even
+<code>SCAN</code>:</strong> check that the driver is loaded:
+<code>systemctl status gpib.service</code>. For a 1.x board, the driver
+needs <code>pin_map=gpib4pi-1.1</code> (section 1, Board
+revisions).</p></li>
+<li><p><strong>Other GPIO hardware on the same Pi:</strong> the driver
+uses GPIO4-13, 16, 18-20 and 22-27 (section 1). Anything else on those
+pins, such as SPI0, an I2S sound card or a 1-wire sensor on GPIO4,
+conflicts.</p></li>
+<li><p><strong>Instrument-specific problems:</strong> see the module’s
+guide (e.g. <code>HP3478A-Module-Guide.md</code>).</p></li>
+</ul>
+<h2 id="credits">Credits</h2>
+<p>This project builds on the gpib4pi board and guide by Lightside
+Instruments, the linux-gpib driver (including the
+<code>gpib_bitbang</code> driver by Thomas Klima and Marcello Carla’),
+HP’s <em>HP-IB Command Library</em> manual (1986), and, for the HP 3478A
+module, the calibration research of Tom Verbeure, PyMeasure, Patrick
+Baus and Vinay Shanbhag. <code>THIRD-PARTY-NOTICES.md</code> says what
+came from each, and the licenses.</p>
+<p>pi-GPIBTerm itself is free software under the GNU General Public
+License version 3 (<code>GPL-3.0-only</code>); see
+<code>LICENSE</code>.</p>
+</body>
+</html>

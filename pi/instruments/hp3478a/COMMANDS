@@ -1,0 +1,4 @@
+# pi-GPIBTerm instrument module commands: install.sh makes one command per line
+# command      program          description
+hp3478a-cal    hp3478a_cal.py   HP 3478A calibration RAM backup/verify/restore
+hp3478a-log    hp3478a_log.py   HP 3478A readings and logging
