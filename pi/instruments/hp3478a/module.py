@@ -13,7 +13,7 @@ menu(ui); see pi/gpibterm_menu.py for what ui offers.
 import datetime
 import os
 
-__version__ = "2.0.6"
+__version__ = "2.0.7"
 TITLE = "HP 3478A multimeter"
 SUMMARY = "readings, calibration RAM backup/restore"
 KEY = "H"

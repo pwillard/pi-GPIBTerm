@@ -51,7 +51,7 @@ ENTRY_NAMES = [
     "V AC", "30 ohm", "300 ohm", "3 kohm", "30 kohm", "300 kohm", "3 Mohm",
     "30 Mohm", "300 mA DC", "3 A DC", "(unused)", "300 mA/3 A AC", "(unused)",
 ]
-__version__ = "2.0.6"
+__version__ = "2.0.7"
 
 
 # ---------------------------------------------------------------- data format

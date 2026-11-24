@@ -47,6 +47,10 @@ ok "FILES examples lists core and module examples" '[[ "$out" == *"bus_tour.bas"
 out="$("$T/bin/hp3478a-cal" decode "$SRC/dev/sample_calram.txt" 2>&1)"
 ok "hp3478a-cal decode works" '[[ "$out" == *"all used entries valid"* ]]'
 
+# the terminal guard: settings put back after a build tool breaks them (staircase screen)
+out="$(python3 "$SRC/dev/test_tty_restore.py" 2>&1)"
+ok "install.sh restores the terminal settings" '[[ "$out" == PASS* ]]'
+
 # the menu, through a real pseudo-terminal (as at the keyboard)
 while read -r line; do
   echo "$line"

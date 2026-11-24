@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # install.sh - install pi-GPIBTerm on a Raspberry Pi with a Lightside gpib4pi board
-# Part of pi-GPIBTerm v2.0.6
+# Part of pi-GPIBTerm v2.0.7
 #
 # On a fresh Raspberry Pi OS Lite:
 #     sudo apt-get update && sudo apt-get -y install git
@@ -42,6 +42,10 @@ HOME_DIR=""
 
 die() { echo "ERROR: $*" >&2; exit 1; }
 say() { echo; echo "=== $*"; }
+# the terminal's settings, restored at the end in case a build tool changed them
+TTY_SAVED="$( { stty -g </dev/tty; } 2>/dev/null || true)"
+fix_tty() { if [ -n "$TTY_SAVED" ]; then { stty "$TTY_SAVED" </dev/tty; } 2>/dev/null || true; fi; }
+trap fix_tty EXIT
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -78,6 +82,7 @@ echo "programs: $PREFIX   commands: $BINDIR   your folder: $HOME_DIR/pi-gpibterm
 if [ "$DRIVER" = yes ]; then
   say "Step 1 of 3: linux-gpib and the gpib4pi driver"
   INSTALL_USER="$TARGET_USER" bash "$SRC/pi/setup_pi.sh"
+  fix_tty
 else
   say "Step 1 of 3: skipped (--no-driver)"
 fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # setup_pi.sh - linux-gpib and the gpib4pi driver on a Raspberry Pi (install.sh runs this)
-# Part of pi-GPIBTerm v2.0.6
+# Part of pi-GPIBTerm v2.0.7
 #
 # Run ON THE PI:   sudo bash setup_pi.sh        (install.sh runs it for you)
 #
@@ -27,6 +27,16 @@ CONF="/usr/etc/gpib.conf"
 PIN_MAP="${PIN_MAP:-}"          # set PIN_MAP=gpib4pi-1.1 for the old v1.1 board
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Keep the terminal readable. Some build tools change the terminal's settings and don't put
+# them back: the worst is turning off the carriage return that goes with each line feed, which
+# makes the rest of the output "staircase" across the screen. So the settings are saved here
+# and restored after each build step and at the end; the build tools get no keyboard input,
+# and apt shows no dialog screens.
+export DEBIAN_FRONTEND=noninteractive
+TTY_SAVED="$( { stty -g </dev/tty; } 2>/dev/null || true)"
+fix_tty() { if [ -n "$TTY_SAVED" ]; then { stty "$TTY_SAVED" </dev/tty; } 2>/dev/null || true; fi; }
+trap fix_tty EXIT
 REBUILD=/usr/local/sbin/pi-gpibterm-driver-rebuild
 GPIB_USER="${INSTALL_USER:-${SUDO_USER:-}}"
 
@@ -81,7 +91,8 @@ elif [ "$USERSPACE_OK" = yes ] && dpkg -s gpib-modules-source >/dev/null 2>&1; t
   echo "This usually means 'apt upgrade' installed a new kernel. Rebuilding only the module."
   apt-get update
   install_headers
-  bash "$HERE/gpib_driver_rebuild.sh" || die "the driver rebuild failed"
+  bash "$HERE/gpib_driver_rebuild.sh" </dev/null || die "the driver rebuild failed"
+  fix_tty
 else
   say "Installing build dependencies"
   apt-get update
@@ -97,9 +108,15 @@ else
   rm -rf "gpib_$VER/.git" "gpib_$VER/debian"
   tar -czf "gpib_$VER.orig.tar.gz" "gpib_$VER"
   rm -rf "gpib_$VER"
-  (cd gpib && debuild -us -uc)
-  dpkg -i ./*.deb
-  module-assistant -t -i auto-install gpib-modules-source
+  say "Building the linux-gpib packages (the documentation formats take a long time)"
+  (cd gpib && debuild -us -uc) </dev/null
+  fix_tty
+  say "Installing the linux-gpib packages"
+  dpkg -i ./*.deb </dev/null
+  fix_tty
+  say "Building the gpib4pi driver module for kernel $(uname -r)"
+  module-assistant -t -i auto-install gpib-modules-source </dev/null
+  fix_tty
   depmod -a
 fi
 

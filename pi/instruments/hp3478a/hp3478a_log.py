@@ -30,7 +30,7 @@ FUNCS = {
     "ohmx": ("F7", "Ohm extended"),
 }
 
-__version__ = "2.0.6"
+__version__ = "2.0.7"
 OVERLOAD = 9.0e9  # 3478A sends +9.99999E+9 when over range
 
 

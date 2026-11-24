@@ -1,6 +1,6 @@
 # pi-GPIBTerm Setup Guide: GPIB on a Raspberry Pi with the Lightside gpib4pi
 
-pi-GPIBTerm v2.0.6
+pi-GPIBTerm v2.0.7
 
 pi-GPIBTerm turns a Raspberry Pi with a Lightside Instruments gpib4pi board into an HP-IB (GPIB)
 workstation for any GPIB instrument: the HP-IB Terminal (an HP 82990A HP-IB Command Library
@@ -35,7 +35,8 @@ cd pi-GPIBTerm && sudo bash install.sh
 You can also download a release package instead of using git:
 `tar xzf pi-GPIBTerm-<version>.tar.gz`, then `cd pi-GPIBTerm-<version>` and
 `sudo bash install.sh`. The first installation builds linux-gpib (sections 2 and 3, done for
-you) and takes an hour or more on a Pi Zero 2 W. Running it again later updates the programs in seconds.
+you) and takes an hour or more on a Pi Zero 2 W. Most of that time goes on building linux-gpib's
+documentation formats, so a long quiet spell is normal. Running it again later updates the programs in seconds.
 Log out and back in once afterwards, so you can use the GPIB board without `sudo`.
 
 **Use** it by typing `pi-gpibterm` to open the menu. It offers the HP-IB Terminal (with an
@@ -391,6 +392,11 @@ in the menu, its own commands, and its own example programs:
 
 ## 5. If something doesn't work
 
+- **The screen "staircases"** (each new line starts further to the right) during or after the
+  installation: a build tool changed the terminal's settings. The installer puts them back
+  after each step since version 2.0.7. To fix it by hand, type `stty sane` and press Enter; you
+  may not see what you type. Or type `reset`. Nothing on the Pi is wrong; it is only the
+  display.
 - **Timeouts or no response:** the address is wrong. Check the instrument's address setting (on many
   older instruments, switches read at power-on, so power-cycle it after a change). Or the driver isn't
   loaded (see below).

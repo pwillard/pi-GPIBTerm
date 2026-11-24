@@ -20,7 +20,7 @@ import shutil
 import subprocess
 import sys
 
-__version__ = "2.0.6"
+__version__ = "2.0.7"
 NAME = "pi-GPIBTerm"
 
 HERE = os.path.dirname(os.path.abspath(__file__))

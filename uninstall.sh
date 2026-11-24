@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-only
 # uninstall.sh - remove the pi-GPIBTerm programs and commands
-# Part of pi-GPIBTerm v2.0.6
+# Part of pi-GPIBTerm v2.0.7
 #
 #   sudo bash uninstall.sh          remove /opt/pi-gpibterm and the commands (keeps the driver)
 #   sudo bash uninstall.sh --driver also stop and remove gpib.service, the boot-time rebuild

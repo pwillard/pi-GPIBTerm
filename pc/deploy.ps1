@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  pi-GPIBTerm v2.0.6 - develop on the PC, install and run on the Raspberry Pi (optional).
+  pi-GPIBTerm v2.0.7 - develop on the PC, install and run on the Raspberry Pi (optional).
 
 .DESCRIPTION
   A helper for working on this project from a Windows PC. It isn't needed to use the

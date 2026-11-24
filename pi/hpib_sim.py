@@ -21,7 +21,7 @@ HPIB_SIM_STALE_READING=1 leaves a reading waiting after a device clear, ahead of
 import os
 import random
 
-__version__ = "2.0.6"
+__version__ = "2.0.7"
 
 TNONE, T1s, T3s, T10s, T30s, T100s, T1000s = 0, 11, 12, 13, 14, 15, 17
 END, TIMO, ERR, CIC, TACS, LACS = 0x2000, 0x4000, 0x8000, 0x20, 0x8, 0x4

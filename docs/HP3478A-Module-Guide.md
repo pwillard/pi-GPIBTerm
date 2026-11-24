@@ -1,6 +1,6 @@
 # HP 3478A Module Guide
 
-pi-GPIBTerm v2.0.6
+pi-GPIBTerm v2.0.7
 
 The HP 3478A module is the part of pi-GPIBTerm made for the HP 3478A multimeter. The rest of
 pi-GPIBTerm works with any GPIB instrument (`pi-GPIBTerm-Setup-Guide.md`). The module adds:

@@ -1,7 +1,7 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-3.0-only
 # run.sh - start one of the pi-GPIBTerm programs (used by the pi-gpibterm, hpib, ... commands)
-# Part of pi-GPIBTerm v2.0.6
+# Part of pi-GPIBTerm v2.0.7
 #
 # Members of the 'gpib' group can use /dev/gpib0 directly (install.sh sets that up; it works
 # after logging in again). Otherwise the program is started with sudo.
