@@ -1,7 +1,7 @@
 # pi-GPIBTerm
 
 **pi-GPIBTerm** turns a **Raspberry Pi** with a **Lightside Instruments gpib4pi** board into an
-HP-IB (GPIB / IEEE-488) workstation for your test equipment. Version 2.0.0.
+HP-IB (GPIB / IEEE-488) workstation for your test equipment. Version 2.0.7.
 
 - **HP-IB Terminal**, a programming environment that works like HP's 1986 **82990A HP-IB
   Command Library** with GW-BASIC.
@@ -47,7 +47,7 @@ adjustable T1 timing. The setup guide explains what that means in practice.
 
    ```bash
    sudo apt-get update && sudo apt-get -y install git
-   git clone https://github.com/<your-account>/pi-GPIBTerm.git
+   git clone https://github.com/pwillard/pi-GPIBTerm.git
    cd pi-GPIBTerm
    sudo bash install.sh
    ```
@@ -62,7 +62,7 @@ adjustable T1 timing. The setup guide explains what that means in practice.
    ```
 
 ```
- pi-GPIBTerm 2.0.0  -  HP-IB / GPIB on a Raspberry Pi
+ pi-GPIBTerm 2.0.7  -  HP-IB / GPIB on a Raspberry Pi
  ------------------------------------------------------------------------------
   1  HP-IB Terminal                (HP-IB programming environment, HELP inside)
   2  HP-IB Terminal - simulator    (practise without an instrument)

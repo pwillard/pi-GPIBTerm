@@ -28,7 +28,7 @@ Everything installs and runs on the Pi itself. No PC is needed.
 
 ```bash
 sudo apt-get update && sudo apt-get -y install git
-git clone https://github.com/<your-account>/pi-GPIBTerm.git
+git clone https://github.com/pwillard/pi-GPIBTerm.git
 cd pi-GPIBTerm && sudo bash install.sh
 ```
 

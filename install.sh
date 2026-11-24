@@ -5,7 +5,7 @@
 #
 # On a fresh Raspberry Pi OS Lite:
 #     sudo apt-get update && sudo apt-get -y install git
-#     git clone https://github.com/<your-account>/pi-GPIBTerm.git
+#     git clone https://github.com/pwillard/pi-GPIBTerm.git
 #     cd pi-GPIBTerm && sudo bash install.sh
 # Then log out and back in, and type:  pi-gpibterm      (the menu)
 #

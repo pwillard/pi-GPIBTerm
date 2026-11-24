@@ -44,8 +44,8 @@ statement, function and library call has an entry (tests enforce it).
 **Next resume action:** test the standalone install on real hardware: (1) fresh SD card with
 Raspberry Pi OS Lite 32-bit -> `git clone` / release tarball -> `sudo bash install.sh` -> log in again
 -> `hp3478a` menu items 9, 1, 5; (2) a later `apt upgrade` with a new kernel -> reboot -> check
-hp3478a-gpib-rebuild.service rebuilt the driver. Before publishing: replace `<your-account>` in
-README.md, install.sh and docs/pi-GPIBTerm-Setup-Guide.md with the real GitHub URL (repo pi-GPIBTerm).
+hp3478a-gpib-rebuild.service rebuilt the driver. Before publishing: keep the GitHub clone URL in README.md, install.sh and
+ docs/pi-GPIBTerm-Setup-Guide.md pointed at the public repository (repo pi-GPIBTerm).
 
 **Hardware status (Nov 2026): SUCCESS** - 3478a_calsave.bas backed up the real meter's cal RAM
 (two matching reads, 16/16 checksums ok; backups/calram_20261123_153548.*) after IOREMOTE 723.
